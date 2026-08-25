@@ -5,7 +5,7 @@ import { SPRING_SETTLE } from "@/lib/motion";
 
 // Slow, ambient playback for a decorative loop rather than the source clip's
 // native pace.
-const VIDEO_PLAYBACK_RATE = 0.5;
+const VIDEO_PLAYBACK_RATE = 0.3;
 
 function setSlowPlayback(el: HTMLVideoElement | null) {
   if (el) el.playbackRate = VIDEO_PLAYBACK_RATE;
