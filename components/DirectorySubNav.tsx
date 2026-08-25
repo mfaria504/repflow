@@ -71,7 +71,7 @@ export default function DirectorySubNav({
               )}
               <span
                 className={`relative z-10 transition-colors duration-200 ${
-                  isActive ? "text-ink" : "text-paper/55 hover:text-safety"
+                  isActive ? "text-ink" : "text-white/70 hover:text-white"
                 }`}
               >
                 {item.label}
