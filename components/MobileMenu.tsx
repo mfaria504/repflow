@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
@@ -19,11 +19,31 @@ export default function MobileMenu() {
   const [open, setOpen] = useState(false);
   const [expanded, setExpanded] = useState<string | null>(null);
   const [mounted, setMounted] = useState(false);
+  const [panelTop, setPanelTop] = useState(0);
+  const buttonRef = useRef<HTMLButtonElement>(null);
   const reduced = useReducedMotion();
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  // The panel is portaled to <body>, so it sits alongside the sticky header
+  // rather than inside it — it needs the header's actual rendered bottom
+  // edge, not a hardcoded pixel height, or the header (higher z-index) ends
+  // up painted over the top of the panel and hides the first item.
+  useLayoutEffect(() => {
+    if (!open) return;
+    const header = buttonRef.current?.closest("header");
+    if (!header) return;
+    const update = () => setPanelTop(header.getBoundingClientRect().bottom);
+    update();
+    window.addEventListener("resize", update);
+    window.addEventListener("scroll", update, { passive: true });
+    return () => {
+      window.removeEventListener("resize", update);
+      window.removeEventListener("scroll", update);
+    };
+  }, [open]);
 
   useEffect(() => {
     if (!open) return;
@@ -47,6 +67,7 @@ export default function MobileMenu() {
   return (
     <div className="sm:hidden">
       <button
+        ref={buttonRef}
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
@@ -65,7 +86,8 @@ export default function MobileMenu() {
                 id="mobile-menu"
                 role="dialog"
                 aria-modal="true"
-                className="fixed inset-x-0 top-[65px] bottom-0 z-40 overflow-y-auto bg-paper"
+                className="fixed inset-x-0 bottom-0 z-40 overflow-y-auto bg-paper"
+                style={{ top: panelTop }}
                 initial={reduced ? false : { opacity: 0, y: -8 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={reduced ? undefined : { opacity: 0, y: -8 }}
