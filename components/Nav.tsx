@@ -5,11 +5,14 @@ export default function Nav() {
   return (
     <header className="sticky top-0 z-50 border-b border-ink/10 bg-paper/85 backdrop-blur-md">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <Link
-          href="/#top"
-          className="font-display text-lg font-bold tracking-tight text-ink"
-        >
-          RepFlow
+        <Link href="/#top" className="shrink-0">
+          <img
+            src="/logo/repflow-logo.svg"
+            alt="RepFlow"
+            width={135}
+            height={28}
+            className="h-7 w-auto sm:h-[30px]"
+          />
         </Link>
         <div className="flex items-center gap-6">
           <MegaMenu />
