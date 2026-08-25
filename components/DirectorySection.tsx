@@ -1,5 +1,5 @@
 import Reveal from "@/components/Reveal";
-import IconPattern from "@/components/IconPattern";
+import IconPattern, { PatternMarker } from "@/components/IconPattern";
 import { ACCENT_CLASSES } from "@/lib/accents";
 import type { DirectoryEntry } from "@/lib/types";
 
@@ -48,21 +48,32 @@ export default function DirectorySection({
           </Reveal>
 
           <Reveal delay={0.08}>
-            <div className="overflow-hidden rounded-sm border border-ink/20 bg-safety">
-              <div className="border-b border-ink/15 bg-paper px-5 py-2.5">
-                <span className="font-mono text-[11px] uppercase tracking-widest text-steel">
+            <div
+              className={`relative overflow-hidden rounded-sm border bg-safety ${accent.border}`}
+            >
+              <IconPattern
+                pattern={item.pattern}
+                className={`pointer-events-none absolute -bottom-5 -right-5 h-32 w-32 opacity-[0.06] ${accent.text}`}
+              />
+              <span
+                aria-hidden
+                className={`absolute inset-y-0 left-0 w-[3px] ${accent.dot}`}
+              />
+
+              <div className={`relative border-b pl-6 pr-5 py-2.5 ${accent.border} ${accent.wash}`}>
+                <span className={`font-mono text-[11px] uppercase tracking-widest ${accent.text}`}>
                   {cardLabel}
                 </span>
               </div>
-              <ul>
+              <ul className="relative">
                 {item.bullets.map((bullet) => (
                   <li
                     key={bullet}
-                    className="flex items-start gap-3 border-b border-ink/10 px-5 py-3.5 text-sm text-ink last:border-b-0"
+                    className="flex items-start gap-3 border-b border-ink/10 py-3.5 pl-6 pr-5 text-sm text-ink last:border-b-0"
                   >
-                    <span
-                      aria-hidden
-                      className={`mt-1.5 h-1.5 w-1.5 shrink-0 rounded-[1px] ${accent.dot}`}
+                    <PatternMarker
+                      pattern={item.pattern}
+                      className={`mt-0.5 h-3 w-3 shrink-0 ${accent.text}`}
                     />
                     {bullet}
                   </li>
