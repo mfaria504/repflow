@@ -1,100 +1,37 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { SPRING_SETTLE, STAMP } from "@/lib/motion";
+import { SPRING_SETTLE } from "@/lib/motion";
 
-const PLATE_ROWS = [
-  { label: "SERVICE", value: "Fractional RevOps" },
-  { label: "SCOPE", value: "Software / Pipeline / Data / Comms" },
-  { label: "OPERATOR", value: "One person. One retainer." },
-  { label: "BUILT FOR", value: "Manufacturers' rep agencies" },
-  { label: "STATUS", value: "Taking a limited number of agencies" },
-];
+// Fades the panel's left edge into the page background and lets the video
+// dissolve out of the dark base beneath it, rather than sitting on top of
+// a hard rectangle.
+const PANEL_MASK =
+  "linear-gradient(to right, transparent 0%, black 24%, black 100%)";
 
-function Screw({ className }: { className: string }) {
-  return (
-    <span
-      aria-hidden
-      className={`absolute h-2.5 w-2.5 rounded-full border border-steel/60 bg-paper ${className}`}
-    >
-      <span className="absolute left-1/2 top-1/2 h-px w-1.5 -translate-x-1/2 -translate-y-1/2 rotate-45 bg-steel/70" />
-    </span>
-  );
-}
-
-function DataPlate() {
+function HeroVideoPanel() {
   const reduced = useReducedMotion();
 
   return (
-    <motion.div
-      className="relative"
-      initial={reduced ? false : { opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.2 }}
+    <div
+      aria-hidden
+      className="pointer-events-none absolute inset-y-0 right-0 z-0 hidden w-[340px] lg:block xl:w-[420px] 2xl:w-[480px]"
+      style={{ maskImage: PANEL_MASK, WebkitMaskImage: PANEL_MASK }}
     >
-      <div className="relative rounded-sm bg-safety p-6 shadow-[0_12px_40px_rgba(43,76,111,0.14),0_2px_8px_rgba(34,38,43,0.08)] sm:p-8">
-        {/* Frame that draws itself in on load */}
-        <svg
-          aria-hidden
-          className="pointer-events-none absolute inset-2 h-[calc(100%-16px)] w-[calc(100%-16px)]"
-          fill="none"
-        >
-          <motion.rect
-            x="1"
-            y="1"
-            width="calc(100% - 2px)"
-            height="calc(100% - 2px)"
-            stroke="#22262B"
-            strokeWidth="1.5"
-            initial={reduced ? false : { pathLength: 0 }}
-            animate={{ pathLength: 1 }}
-            transition={reduced ? { duration: 0 } : { duration: 0.5, ease: "easeOut" }}
-          />
-        </svg>
-
-        <Screw className="left-1.5 top-1.5" />
-        <Screw className="right-1.5 top-1.5" />
-        <Screw className="bottom-1.5 left-1.5" />
-        <Screw className="bottom-1.5 right-1.5" />
-
-        <div className="relative px-2 py-1">
-          <motion.div
-            className="flex items-baseline justify-between border-b border-ink/20 pb-3"
-            initial={reduced ? false : { opacity: 0, y: -4, scale: 1.04 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={reduced ? { duration: 0 } : { ...STAMP, delay: 0.25 }}
-          >
-            <span className="font-mono text-[11px] font-medium uppercase tracking-widest text-ink">
-              RepFlow · Revenue Operations
-            </span>
-            <span className="font-mono text-[11px] uppercase tracking-widest text-steel tabular">
-              No. RF-001
-            </span>
-          </motion.div>
-
-          <dl>
-            {PLATE_ROWS.map((row, i) => (
-              <motion.div
-                key={row.label}
-                className="flex items-baseline justify-between gap-4 border-b border-ink/10 py-3 last:border-b-0"
-                initial={reduced ? false : { opacity: 0, y: -4, scale: 1.04 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                transition={
-                  reduced ? { duration: 0 } : { ...STAMP, delay: 0.31 + i * 0.04 }
-                }
-              >
-                <dt className="shrink-0 font-mono text-[11px] uppercase tracking-widest text-steel">
-                  {row.label}
-                </dt>
-                <dd className="text-right text-sm font-medium text-ink">
-                  {row.value}
-                </dd>
-              </motion.div>
-            ))}
-          </dl>
-        </div>
+      <div className="grain relative h-full w-full bg-ink">
+        <video
+          className="absolute inset-0 h-full w-full object-cover"
+          src="/hero-video.mp4"
+          autoPlay={!reduced}
+          loop={!reduced}
+          muted
+          playsInline
+          preload="auto"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-ink/25 via-transparent to-ink/40" />
+        <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/10 to-transparent" />
       </div>
-    </motion.div>
+    </div>
   );
 }
 
@@ -112,8 +49,10 @@ export default function Hero() {
 
   return (
     <section id="top" className="relative overflow-hidden">
-      <div className="mx-auto grid max-w-6xl items-center gap-12 px-6 pb-20 pt-16 sm:pt-24 lg:grid-cols-[1fr_400px] lg:gap-16 lg:pb-28">
-        <div>
+      <HeroVideoPanel />
+
+      <div className="relative z-10 mx-auto max-w-6xl px-6 pb-20 pt-16 sm:pt-24 lg:pb-28">
+        <div className="lg:max-w-xl">
           <motion.h1
             className="text-balance font-display font-bold tracking-[-0.03em] text-ink"
             style={{ fontSize: "clamp(2.25rem, 4.5vw + 1rem, 4rem)" }}
@@ -140,9 +79,20 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        <div className="lg:-rotate-1">
-          <DataPlate />
-        </div>
+        {/* Below desktop the full-bleed panel is hidden, so the same clip runs here instead. */}
+        <motion.div className="mt-12 lg:hidden" {...settle(0.8)}>
+          <div className="grain relative mx-auto aspect-[464/688] max-w-[320px] overflow-hidden rounded-sm bg-ink shadow-[0_12px_40px_rgba(34,38,43,0.25)]">
+            <video
+              className="absolute inset-0 h-full w-full object-cover"
+              src="/hero-video.mp4"
+              autoPlay={!reduced}
+              loop={!reduced}
+              muted
+              playsInline
+              preload="auto"
+            />
+          </div>
+        </motion.div>
       </div>
     </section>
   );
