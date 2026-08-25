@@ -47,7 +47,7 @@ export default function DirectorySubNav({
   }, [active]);
 
   return (
-    <div className="sticky top-[65px] z-30 border-b border-ink/10 bg-paper/90 backdrop-blur-md">
+    <div className="sticky top-[65px] z-30 border-b border-paper/10 bg-ink/95 backdrop-blur-md">
       <div
         ref={ref}
         className="mx-auto flex max-w-6xl gap-1 overflow-x-auto px-6 py-3 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
@@ -65,13 +65,13 @@ export default function DirectorySubNav({
               {isActive && (
                 <motion.span
                   layoutId="subnav-pill"
-                  className="absolute inset-0 rounded-sm bg-ink"
+                  className="absolute inset-0 rounded-sm bg-safety"
                   transition={reduced ? { duration: 0 } : SPRING}
                 />
               )}
               <span
                 className={`relative z-10 transition-colors duration-200 ${
-                  isActive ? "text-safety" : "text-ink/55 hover:text-ink"
+                  isActive ? "text-ink" : "text-paper/55 hover:text-safety"
                 }`}
               >
                 {item.label}
