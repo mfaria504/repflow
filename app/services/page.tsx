@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import AnnouncementBar from "@/components/AnnouncementBar";
 import Nav from "@/components/Nav";
 import DirectoryHero from "@/components/DirectoryHero";
 import DirectorySubNav from "@/components/DirectorySubNav";
@@ -16,6 +17,7 @@ export const metadata: Metadata = {
 export default function ServicesPage() {
   return (
     <>
+      <AnnouncementBar />
       <Nav />
       <main>
         <DirectoryHero
