@@ -4,6 +4,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { SPRING_SETTLE, STAMP } from "@/lib/motion";
 import { SERVICES } from "@/lib/services";
 import { INDUSTRIES } from "@/lib/industries";
+import { ACCENT_CLASSES } from "@/lib/accents";
 
 function Screw({ className }: { className: string }) {
   return (
@@ -106,6 +107,7 @@ export default function DirectoryHero({
               <div className="grid grid-cols-2 gap-1">
                 {items.map((item, i) => {
                   const Icon = item.icon;
+                  const accent = ACCENT_CLASSES[item.accent];
                   return (
                     <motion.a
                       key={item.slug}
@@ -117,7 +119,9 @@ export default function DirectoryHero({
                       }
                       className="group flex flex-col gap-2 rounded-sm border border-transparent p-2.5 transition-colors duration-150 hover:border-ink/10 hover:bg-paper"
                     >
-                      <span className="flex h-8 w-8 items-center justify-center rounded-sm border border-ink/15 bg-paper text-brass transition-transform duration-200 group-hover:-translate-y-0.5">
+                      <span
+                        className={`flex h-8 w-8 items-center justify-center rounded-sm border bg-paper transition-transform duration-200 group-hover:-translate-y-0.5 ${accent.text} ${accent.border}`}
+                      >
                         <Icon className="h-4 w-4" strokeWidth={1.75} />
                       </span>
                       <span className="text-xs font-medium leading-tight text-ink">

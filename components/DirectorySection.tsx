@@ -1,4 +1,6 @@
 import Reveal from "@/components/Reveal";
+import IconPattern from "@/components/IconPattern";
+import { ACCENT_CLASSES } from "@/lib/accents";
 import type { DirectoryEntry } from "@/lib/types";
 
 export default function DirectorySection({
@@ -12,6 +14,7 @@ export default function DirectorySection({
 }) {
   const Icon = item.icon;
   const tinted = index % 2 === 1;
+  const accent = ACCENT_CLASSES[item.accent];
 
   return (
     <section
@@ -22,8 +25,15 @@ export default function DirectorySection({
         <div className="grid gap-10 lg:grid-cols-[1fr_360px] lg:gap-16">
           <Reveal>
             <div className="mb-5 flex items-center gap-4">
-              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-sm border border-ink/15 bg-safety text-brass">
-                <Icon className="h-5 w-5" strokeWidth={1.75} />
+              <span
+                className={`relative flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-sm border bg-safety ${accent.text} ${accent.border}`}
+              >
+                <IconPattern
+                  pattern={item.pattern}
+                  className="absolute inset-0 h-full w-full opacity-[0.16]"
+                />
+                <span className={`absolute inset-0 ${accent.wash}`} aria-hidden />
+                <Icon className="relative h-5 w-5" strokeWidth={1.75} />
               </span>
               <span className="font-mono text-xs uppercase tracking-widest text-steel">
                 {String(index + 1).padStart(2, "0")} · {item.label}
@@ -52,7 +62,7 @@ export default function DirectorySection({
                   >
                     <span
                       aria-hidden
-                      className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-[1px] bg-brass"
+                      className={`mt-1.5 h-1.5 w-1.5 shrink-0 rounded-[1px] ${accent.dot}`}
                     />
                     {bullet}
                   </li>
