@@ -7,6 +7,7 @@ import { ArrowRight, ChevronDown } from "lucide-react";
 import { SPRING } from "@/lib/motion";
 import { SERVICES } from "@/lib/services";
 import { INDUSTRIES } from "@/lib/industries";
+import { ACCENT_CLASSES } from "@/lib/accents";
 
 export default function NavMegaMenu({
   label,
@@ -103,6 +104,7 @@ export default function NavMegaMenu({
                 {items.map((item, i) => {
                   const Icon = item.icon;
                   const isLastOdd = lastSpans2 && i === items.length - 1;
+                  const accent = ACCENT_CLASSES[item.accent];
                   return (
                     <motion.div
                       key={item.slug}
@@ -122,7 +124,9 @@ export default function NavMegaMenu({
                           isLastOdd ? "sm:max-w-[50%]" : ""
                         }`}
                       >
-                        <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-sm border border-ink/15 bg-paper text-brass transition-[transform,box-shadow] duration-200 group-hover:-translate-y-0.5 group-hover:shadow-[0_6px_16px_rgba(199,123,39,0.25)]">
+                        <span
+                          className={`mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-sm border bg-paper transition-transform duration-200 group-hover:-translate-y-0.5 ${accent.text} ${accent.border} ${accent.shadow}`}
+                        >
                           <Icon className="h-[18px] w-[18px]" strokeWidth={1.75} />
                         </span>
                         <span>
