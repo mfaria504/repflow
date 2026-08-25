@@ -1,0 +1,89 @@
+@import "tailwindcss";
+
+@theme {
+  /* RepFlow design tokens, Section 4 of the roadmap */
+  --color-paper: #edebe4;
+  --color-ink: #22262b;
+  --color-brass: #c77b27;
+  --color-blueprint: #2b4c6f;
+  --color-steel: #8b8f94;
+  --color-safety: #fafaf8;
+}
+
+@theme inline {
+  --font-display: var(--font-space-grotesk), "Space Grotesk", sans-serif;
+  --font-sans: var(--font-plex-sans), "IBM Plex Sans", sans-serif;
+  --font-mono: var(--font-plex-mono), "IBM Plex Mono", monospace;
+}
+
+:root {
+  --brass-rgb: 199, 123, 39;
+  --blueprint-rgb: 43, 76, 111;
+  --ink-rgb: 34, 38, 43;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-plex-sans), "IBM Plex Sans", sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background-color: rgba(var(--brass-rgb), 0.25);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-space-grotesk), "Space Grotesk", sans-serif;
+  line-height: 1.1;
+}
+
+p {
+  max-width: 68ch;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-brass);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+/* Subtle paper grain over large flat surfaces */
+.grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
