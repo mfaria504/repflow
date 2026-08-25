@@ -30,10 +30,16 @@ function HeroVideoPanel() {
         playsInline
         preload="auto"
       />
-      {/* Dissolves the video's left edge into the section's own dark base
-          so it reads as one continuous surface rather than a boxed insert. */}
-      <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/55 to-transparent" />
-      <div className="absolute inset-0 bg-gradient-to-b from-ink/30 via-transparent to-ink/45" />
+      {/* Dissolves just the video's left seam into the section's dark base,
+          without dimming the clip itself. */}
+      <div
+        className="absolute inset-0"
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, rgba(var(--ink-rgb), 0.9) 0%, rgba(var(--ink-rgb), 0) 22%)",
+        }}
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-ink/12 via-transparent to-ink/18" />
     </div>
   );
 }
