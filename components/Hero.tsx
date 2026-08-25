@@ -119,14 +119,15 @@ export default function Hero() {
             style={{ fontSize: "clamp(2.25rem, 4.5vw + 1rem, 4rem)" }}
             {...settle(0.55)}
           >
-            Your back office, run by someone who&apos;s actually run one.
+            The technology partner built for manufacturers&apos; rep
+            agencies.
           </motion.h1>
           <motion.p
             className="mt-6 max-w-[52ch] text-lg text-ink/65"
             {...settle(0.65)}
           >
-            One retainer. The software, the pipeline, the data, and the
-            communications. Handled, not just sold to you.
+            Run by someone who&apos;s actually run one. One retainer covers
+            the software, the pipeline, the data, and the communications.
           </motion.p>
           <motion.div className="mt-10" {...settle(0.73)}>
             <a

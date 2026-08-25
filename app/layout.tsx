@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://repflow.com"),
   title: "RepFlow. Fractional RevOps for rep agencies.",
   description:
-    "Your back office, run by someone who's actually run one. One retainer covers the software, the pipeline, the data, and the communications for manufacturers' representative agencies.",
+    "The technology partner built for manufacturers' rep agencies. Run by someone who's actually run one. One retainer covers the software, the pipeline, the data, and the communications.",
   openGraph: {
     title: "RepFlow. Fractional RevOps for rep agencies.",
     description:
