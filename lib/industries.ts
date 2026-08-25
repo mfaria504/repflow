@@ -1,0 +1,105 @@
+import { Fan, Zap, Droplets, Flame, Waves, Factory, ChefHat } from "lucide-react";
+import type { DirectoryEntry } from "@/lib/types";
+
+export type Industry = DirectoryEntry;
+
+export const INDUSTRIES: Industry[] = [
+  {
+    slug: "hvac",
+    label: "HVAC",
+    icon: Fan,
+    blurb: "Where the model was built and proven, inside a real AIM/R agency.",
+    headline: "Built inside HVAC, proven inside HVAC.",
+    body: "RepFlow started as the back office for a mechanical rep agency, not a generic CRM adapted after the fact. Quoting, price books, and commission tracking built around how HVAC reps actually sell: multiple lines, tiered pricing, and distributors who expect a fast, accurate quote.",
+    bullets: [
+      "Line card built for multiple non-competing mechanical lines",
+      "Quoting against distributor and contractor price tiers",
+      "Commission tracking that matches AIM/R-style rep agreements",
+      "Built and tested inside a real HVAC agency first",
+    ],
+  },
+  {
+    slug: "electrical",
+    label: "Electrical",
+    icon: Zap,
+    blurb: "The same rep-distributor model as HVAC, run for NEMRA agencies.",
+    headline: "The same model, built for electrical.",
+    body: "NEMRA agencies run on the same structure as mechanical reps: independent territories, non-competing lines, and distributor-driven sales. The systems transfer directly, configured for electrical price books, panel and gear specs, and your own territory map.",
+    bullets: [
+      "Price books built for electrical gear and panel specs",
+      "Territory and distributor mapping for NEMRA-style agencies",
+      "Commission tracking across multiple manufacturer lines",
+      "The same platform proven in HVAC, configured for electrical",
+    ],
+  },
+  {
+    slug: "plumbing-pvf",
+    label: "Plumbing & PVF",
+    icon: Droplets,
+    blurb: "Pipe, valve, and fitting lines, sold through HVAC's own distributor world.",
+    headline: "PVF reps already share HVAC's world. The systems do too.",
+    body: "Plumbing and PVF agencies already overlap with HVAC through AIM/R and Supply House Times. Same wholesale distributors, same rep-agreement structure, same quoting pressure. RepFlow runs the back office for both without a separate setup.",
+    bullets: [
+      "Price books for pipe, valve, and fitting product lines",
+      "Quoting built around wholesale plumbing distributor pricing",
+      "Shared distributor and contact data across PVF and HVAC lines",
+      "Commission tracking for multi-line PVF rep agreements",
+    ],
+  },
+  {
+    slug: "fire-protection",
+    label: "Fire Protection & Life Safety",
+    icon: Flame,
+    blurb: "A smaller, tightly organized rep market, run with the same discipline.",
+    headline: "A smaller market. The same discipline.",
+    body: "Fire protection and life safety runs on a tighter, more specialized rep network than HVAC or electrical, but the structure is identical: independent reps, non-competing lines, and distributors who expect precision. Specs and code compliance matter more here, so the data has to be exact.",
+    bullets: [
+      "Price books built for fire and life safety product specs",
+      "Quote accuracy for code-driven, compliance-sensitive lines",
+      "Commission tracking for a smaller, specialized line card",
+      "Distributor and AHJ contact data kept current",
+    ],
+  },
+  {
+    slug: "waterworks",
+    label: "Waterworks",
+    icon: Waves,
+    blurb: "Municipal and utility-facing sales, with pipeline built for longer cycles.",
+    headline: "Longer cycles. The same pipeline discipline.",
+    body: "Waterworks reps sell into municipalities and utilities, not just contractors and distributors. Sales cycles run longer and involve more stakeholders. The pipeline and follow-up systems are built to hold a deal for months without anything falling through.",
+    bullets: [
+      "Pipeline stages built for longer, multi-stakeholder sales cycles",
+      "Municipal and utility contact and bid tracking",
+      "Follow-up cadences that survive a six-month sales cycle",
+      "Commission tracking across public and private-sector deals",
+    ],
+  },
+  {
+    slug: "industrial-mro",
+    label: "Industrial & MRO Supplies",
+    icon: Factory,
+    blurb: "A larger, more fragmented market, run through one system.",
+    headline: "A bigger, messier market. Still one system.",
+    body: "Industrial and MRO is larger and more fragmented than HVAC or electrical: more distributors, more SKUs, more lines. That fragmentation is exactly what a real back office is built to handle: one place for pricing, pipeline, and commission across a sprawling line card.",
+    bullets: [
+      "Price books built to handle high SKU counts across lines",
+      "Pipeline built for a fragmented, multi-distributor market",
+      "Commission tracking across a large, varied line card",
+      "Prospect and distributor data kept in one place, not five",
+    ],
+  },
+  {
+    slug: "foodservice-equipment",
+    label: "Foodservice Equipment",
+    icon: ChefHat,
+    blurb: "A different trade, the same rep-agency tradition, via FSMA.",
+    headline: "A different trade. The same rep-agency tradition.",
+    body: "Foodservice equipment isn't mechanical, but it runs on the same rep-agency backbone through FSMA: independent reps, non-competing lines, distributor and dealer relationships. The back office translates directly, built around your lines instead of retrofitted from someone else's.",
+    bullets: [
+      "Price books built for foodservice equipment lines",
+      "Dealer and distributor relationship tracking",
+      "Commission tracking across non-competing equipment lines",
+      "The same back office discipline, built for a new trade",
+    ],
+  },
+];

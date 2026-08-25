@@ -1,19 +1,21 @@
 import Reveal from "@/components/Reveal";
-import type { Service } from "@/lib/services";
+import type { DirectoryEntry } from "@/lib/types";
 
-export default function ServiceSection({
-  service,
+export default function DirectorySection({
+  item,
   index,
+  cardLabel,
 }: {
-  service: Service;
+  item: DirectoryEntry;
   index: number;
+  cardLabel: string;
 }) {
-  const Icon = service.icon;
+  const Icon = item.icon;
   const tinted = index % 2 === 1;
 
   return (
     <section
-      id={service.slug}
+      id={item.slug}
       className={`scroll-mt-[120px] border-b border-ink/10 ${tinted ? "bg-safety" : "bg-paper"}`}
     >
       <div className="mx-auto max-w-6xl px-6 py-16 sm:py-20">
@@ -24,14 +26,14 @@ export default function ServiceSection({
                 <Icon className="h-5 w-5" strokeWidth={1.75} />
               </span>
               <span className="font-mono text-xs uppercase tracking-widest text-steel">
-                {String(index + 1).padStart(2, "0")} · {service.label}
+                {String(index + 1).padStart(2, "0")} · {item.label}
               </span>
             </div>
             <h2 className="max-w-[22ch] font-display text-2xl font-bold tracking-[-0.02em] text-ink sm:text-3xl">
-              {service.headline}
+              {item.headline}
             </h2>
             <p className="mt-4 max-w-[60ch] text-base text-ink/65 sm:text-lg">
-              {service.body}
+              {item.body}
             </p>
           </Reveal>
 
@@ -39,11 +41,11 @@ export default function ServiceSection({
             <div className="overflow-hidden rounded-sm border border-ink/20 bg-safety">
               <div className="border-b border-ink/15 bg-paper px-5 py-2.5">
                 <span className="font-mono text-[11px] uppercase tracking-widest text-steel">
-                  What&apos;s included
+                  {cardLabel}
                 </span>
               </div>
               <ul>
-                {service.bullets.map((bullet) => (
+                {item.bullets.map((bullet) => (
                   <li
                     key={bullet}
                     className="flex items-start gap-3 border-b border-ink/10 px-5 py-3.5 text-sm text-ink last:border-b-0"

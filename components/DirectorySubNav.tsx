@@ -2,15 +2,24 @@
 
 import { useEffect, useRef, useState } from "react";
 import { SERVICES } from "@/lib/services";
+import { INDUSTRIES } from "@/lib/industries";
 
-export default function ServicesSubNav() {
-  const [active, setActive] = useState(SERVICES[0].slug);
+export default function DirectorySubNav({
+  kind,
+}: {
+  kind: "services" | "industries";
+}) {
+  // Resolved here rather than passed as a prop: these arrays carry live
+  // icon components, which a Server Component parent can't pass across
+  // the client boundary as serializable props.
+  const items = kind === "services" ? SERVICES : INDUSTRIES;
+  const [active, setActive] = useState(items[0].slug);
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const sections = SERVICES.map((s) => document.getElementById(s.slug)).filter(
-      (el): el is HTMLElement => Boolean(el),
-    );
+    const sections = items
+      .map((item) => document.getElementById(item.slug))
+      .filter((el): el is HTMLElement => Boolean(el));
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -24,6 +33,7 @@ export default function ServicesSubNav() {
 
     sections.forEach((section) => observer.observe(section));
     return () => observer.disconnect();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -39,18 +49,18 @@ export default function ServicesSubNav() {
         ref={ref}
         className="mx-auto flex max-w-6xl gap-1 overflow-x-auto px-6 py-3 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
-        {SERVICES.map((service) => (
+        {items.map((item) => (
           <a
-            key={service.slug}
-            href={`#${service.slug}`}
-            data-slug={service.slug}
+            key={item.slug}
+            href={`#${item.slug}`}
+            data-slug={item.slug}
             className={`shrink-0 rounded-sm px-3.5 py-1.5 font-mono text-xs uppercase tracking-widest transition-colors duration-200 ${
-              active === service.slug
+              active === item.slug
                 ? "bg-ink text-safety"
                 : "text-ink/55 hover:text-ink"
             }`}
           >
-            {service.label}
+            {item.label}
           </a>
         ))}
       </div>

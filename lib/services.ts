@@ -6,18 +6,10 @@ import {
   Settings2,
   Database,
   ServerCog,
-  type LucideIcon,
 } from "lucide-react";
+import type { DirectoryEntry } from "@/lib/types";
 
-export type Service = {
-  slug: string;
-  label: string;
-  icon: LucideIcon;
-  blurb: string;
-  headline: string;
-  body: string;
-  bullets: string[];
-};
+export type Service = DirectoryEntry;
 
 export const SERVICES: Service[] = [
   {
