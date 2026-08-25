@@ -4,7 +4,7 @@ import MobileMenu from "@/components/MobileMenu";
 
 export default function Nav() {
   return (
-    <header className="sticky top-0 z-50 border-b border-ink/10 bg-paper/85 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-ink/10 bg-safety">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <Link href="/#top" className="shrink-0">
           <img
