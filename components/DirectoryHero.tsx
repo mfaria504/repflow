@@ -5,6 +5,7 @@ import { SPRING_SETTLE, STAMP } from "@/lib/motion";
 import { SERVICES } from "@/lib/services";
 import { INDUSTRIES } from "@/lib/industries";
 import { ACCENT_CLASSES } from "@/lib/accents";
+import IconPattern from "@/components/IconPattern";
 
 function Screw({ className }: { className: string }) {
   return (
@@ -16,6 +17,59 @@ function Screw({ className }: { className: string }) {
     </span>
   );
 }
+
+// Two distinct hero treatments sharing one brand vocabulary (brass eyebrow,
+// safety-white text, the same accent-tinted shadow recipe used across the
+// site) so the pages read as siblings, not a mismatched pair. Services runs
+// cool and technical (blueprint navy, circuit/dot patterns); Industries runs
+// warm and industrial (brass-ember, hatch/gauge patterns), each ending dark
+// so it flows straight into the dark sub-nav bar beneath it.
+const HERO_THEMES = {
+  services: {
+    background: "linear-gradient(135deg, #142338 0%, #2b4c6f 55%, #1c3450 100%)",
+    rotate: "lg:rotate-1",
+    cardShadow:
+      "shadow-[0_20px_56px_rgba(43,76,111,0.45),0_2px_10px_rgba(0,0,0,0.3)]",
+    patterns: (
+      <>
+        <IconPattern
+          pattern="circuit-trace"
+          className="pointer-events-none absolute -right-20 -top-20 h-[28rem] w-[28rem] text-safety opacity-[0.06]"
+        />
+        <IconPattern
+          pattern="dot-grid"
+          className="pointer-events-none absolute -bottom-12 -left-12 h-64 w-64 text-brass opacity-[0.14]"
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -right-24 bottom-[-6rem] h-72 w-72 rounded-full bg-brass/25 blur-[100px]"
+        />
+      </>
+    ),
+  },
+  industries: {
+    background: "linear-gradient(135deg, #221a12 0%, #4a3018 55%, #2c2013 100%)",
+    rotate: "lg:-rotate-1",
+    cardShadow:
+      "shadow-[0_20px_56px_rgba(199,123,39,0.4),0_2px_10px_rgba(0,0,0,0.3)]",
+    patterns: (
+      <>
+        <IconPattern
+          pattern="diagonal-hatch"
+          className="pointer-events-none absolute -right-16 -top-16 h-[26rem] w-[26rem] rotate-6 text-brass opacity-[0.09]"
+        />
+        <IconPattern
+          pattern="radial-rings"
+          className="pointer-events-none absolute -bottom-16 -left-16 h-72 w-72 text-safety opacity-[0.07]"
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -left-20 top-[-4rem] h-64 w-64 rounded-full bg-blueprint/35 blur-[100px]"
+        />
+      </>
+    ),
+  },
+} as const;
 
 export default function DirectoryHero({
   eyebrow,
@@ -36,6 +90,7 @@ export default function DirectoryHero({
   // icon components, which a Server Component parent can't pass across
   // the client boundary as serializable props.
   const items = kind === "services" ? SERVICES : INDUSTRIES;
+  const theme = HERO_THEMES[kind];
   const reduced = useReducedMotion();
 
   const settle = (delay: number) =>
@@ -48,8 +103,12 @@ export default function DirectoryHero({
         };
 
   return (
-    <section className="relative overflow-hidden border-b border-ink/10">
-      <div className="mx-auto grid max-w-6xl items-center gap-12 px-6 pb-16 pt-14 sm:pt-20 lg:grid-cols-[1fr_400px] lg:gap-16 lg:pb-24">
+    <section
+      className="grain relative overflow-hidden border-b border-white/10"
+      style={{ background: theme.background }}
+    >
+      {theme.patterns}
+      <div className="relative z-10 mx-auto grid max-w-6xl items-center gap-12 px-6 pb-16 pt-14 sm:pt-20 lg:grid-cols-[1fr_400px] lg:gap-16 lg:pb-24">
         <div>
           <motion.span
             {...settle(0)}
@@ -59,12 +118,12 @@ export default function DirectoryHero({
           </motion.span>
           <motion.h1
             {...settle(0.06)}
-            className="mt-4 max-w-[18ch] text-balance font-display font-bold tracking-[-0.03em] text-ink"
+            className="mt-4 max-w-[18ch] text-balance font-display font-bold tracking-[-0.03em] text-safety"
             style={{ fontSize: "clamp(2rem, 4vw + 1rem, 3.5rem)" }}
           >
             {headline}
           </motion.h1>
-          <motion.p {...settle(0.14)} className="mt-6 max-w-[54ch] text-lg text-ink/65">
+          <motion.p {...settle(0.14)} className="mt-6 max-w-[54ch] text-lg text-safety/70">
             {subhead}
           </motion.p>
           <motion.div {...settle(0.2)} className="mt-10">
@@ -78,12 +137,12 @@ export default function DirectoryHero({
         </div>
 
         <motion.div
-          className="relative lg:rotate-1"
+          className={`relative ${theme.rotate}`}
           initial={reduced ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.2 }}
         >
-          <div className="relative rounded-sm bg-safety p-5 shadow-[0_12px_40px_rgba(43,76,111,0.14),0_2px_8px_rgba(34,38,43,0.08)] sm:p-6">
+          <div className={`relative rounded-sm bg-safety p-5 sm:p-6 ${theme.cardShadow}`}>
             <Screw className="left-1.5 top-1.5" />
             <Screw className="right-1.5 top-1.5" />
             <Screw className="bottom-1.5 left-1.5" />
