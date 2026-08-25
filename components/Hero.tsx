@@ -36,10 +36,10 @@ function HeroVideoPanel() {
         className="absolute inset-0"
         style={{
           backgroundImage:
-            "linear-gradient(to right, rgba(var(--ink-rgb), 0.9) 0%, rgba(var(--ink-rgb), 0) 22%)",
+            "linear-gradient(to right, rgba(var(--midnight-rgb), 0.9) 0%, rgba(var(--midnight-rgb), 0) 22%)",
         }}
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-ink/12 via-transparent to-ink/18" />
+      <div className="absolute inset-0 bg-gradient-to-b from-midnight/12 via-transparent to-midnight/18" />
     </div>
   );
 }
@@ -57,7 +57,7 @@ export default function Hero() {
         };
 
   return (
-    <section id="top" className="grain relative overflow-hidden bg-ink">
+    <section id="top" className="grain relative overflow-hidden bg-midnight">
       <HeroVideoPanel />
 
       <div className="relative z-10 mx-auto max-w-6xl px-6 pb-20 pt-16 sm:pt-24 lg:pb-28">
@@ -90,7 +90,7 @@ export default function Hero() {
 
         {/* Below desktop the full-bleed panel is hidden, so the same clip runs here instead. */}
         <motion.div className="mt-12 lg:hidden" {...settle(0.8)}>
-          <div className="grain relative mx-auto aspect-[464/688] max-w-[320px] overflow-hidden rounded-sm border border-white/10 bg-ink shadow-[0_12px_40px_rgba(0,0,0,0.45)]">
+          <div className="grain relative mx-auto aspect-[464/688] max-w-[320px] overflow-hidden rounded-sm border border-white/10 bg-midnight shadow-[0_12px_40px_rgba(0,0,0,0.45)]">
             <video
               ref={setSlowPlayback}
               onLoadedMetadata={(e) => setSlowPlayback(e.currentTarget)}
