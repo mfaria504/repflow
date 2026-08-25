@@ -86,3 +86,59 @@ export default function IconPattern({
     </svg>
   );
 }
+
+// Tiny 10x10 glyphs echoing each pattern's shape, for use as a list-item
+// marker in place of a generic dot, so even the bullet marks carry the
+// item's identity.
+const MARKERS: Record<Pattern, React.ReactNode> = {
+  "radial-rings": (
+    <>
+      <circle cx="5" cy="5" r="1.4" fill="currentColor" stroke="none" />
+      <circle cx="5" cy="5" r="3.6" strokeWidth={1} />
+    </>
+  ),
+  "circuit-trace": (
+    <>
+      <path d="M2 8 V5 H8" strokeWidth={1.4} />
+      <circle cx="2" cy="8" r="1.3" fill="currentColor" stroke="none" />
+      <circle cx="8" cy="5" r="1.3" fill="currentColor" stroke="none" />
+    </>
+  ),
+  "dot-grid": (
+    <>
+      <circle cx="3" cy="3" r="1.3" fill="currentColor" stroke="none" />
+      <circle cx="7.5" cy="3" r="1.3" fill="currentColor" stroke="none" />
+      <circle cx="3" cy="7.5" r="1.3" fill="currentColor" stroke="none" />
+      <circle cx="7.5" cy="7.5" r="1.3" fill="currentColor" stroke="none" />
+    </>
+  ),
+  "wave-lines": <path d="M1 5.5 Q 3 2.5, 5 5.5 T 9 5.5" strokeWidth={1.4} />,
+  "diagonal-hatch": <path d="M2 8 L8 2" strokeWidth={1.6} />,
+  "orbit-arc": (
+    <>
+      <circle cx="5" cy="5" r="3.6" strokeWidth={1} strokeDasharray="6 4" />
+      <circle cx="8" cy="2.6" r="1.3" fill="currentColor" stroke="none" />
+    </>
+  ),
+};
+
+export function PatternMarker({
+  pattern,
+  className,
+}: {
+  pattern: Pattern;
+  className?: string;
+}) {
+  return (
+    <svg
+      viewBox="0 0 10 10"
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      className={className}
+      aria-hidden
+    >
+      {MARKERS[pattern]}
+    </svg>
+  );
+}
