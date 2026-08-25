@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, ChevronDown } from "lucide-react";
@@ -26,10 +26,30 @@ export default function NavMegaMenu({
   // serializable.
   const items = kind === "services" ? SERVICES : INDUSTRIES;
   const [open, setOpen] = useState(false);
+  const [overlayTop, setOverlayTop] = useState(0);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const isHovering = useRef(false);
+  const containerRef = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
   const lastSpans2 = items.length % 2 === 1;
+
+  // The backdrop needs to start exactly at the header's bottom edge, not a
+  // hardcoded pixel value: the header's rendered height (and position, while
+  // it's not yet stuck to the top) shifts whenever the announcement bar
+  // above it is present or its copy wraps differently.
+  useLayoutEffect(() => {
+    if (!open) return;
+    const header = containerRef.current?.closest("header");
+    if (!header) return;
+    const update = () => setOverlayTop(header.getBoundingClientRect().bottom);
+    update();
+    window.addEventListener("resize", update);
+    window.addEventListener("scroll", update, { passive: true });
+    return () => {
+      window.removeEventListener("resize", update);
+      window.removeEventListener("scroll", update);
+    };
+  }, [open]);
 
   function openNow() {
     if (closeTimer.current) clearTimeout(closeTimer.current);
@@ -43,6 +63,7 @@ export default function NavMegaMenu({
 
   return (
     <div
+      ref={containerRef}
       className="relative"
       onMouseEnter={() => {
         isHovering.current = true;
@@ -84,7 +105,8 @@ export default function NavMegaMenu({
           <>
             <motion.div
               aria-hidden
-              className="fixed inset-x-0 top-[65px] bottom-0 z-40 bg-ink/10 backdrop-blur-[1px]"
+              className="fixed inset-x-0 bottom-0 z-40 bg-ink/10 backdrop-blur-[1px]"
+              style={{ top: overlayTop }}
               initial={reduced ? false : { opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={reduced ? undefined : { opacity: 0 }}
