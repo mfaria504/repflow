@@ -19,6 +19,12 @@ export default function Footer() {
           >
             Services
           </Link>
+          <Link
+            href="/industries"
+            className="text-sm font-medium text-safety/80 transition-colors duration-150 hover:text-safety"
+          >
+            Industries
+          </Link>
           <a
             href="#assessment"
             className="text-sm font-medium text-safety/80 transition-colors duration-150 hover:text-safety"

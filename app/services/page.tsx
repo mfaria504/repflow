@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Nav from "@/components/Nav";
-import ServicesHero from "@/components/ServicesHero";
-import ServicesSubNav from "@/components/ServicesSubNav";
-import ServiceSection from "@/components/ServiceSection";
+import DirectoryHero from "@/components/DirectoryHero";
+import DirectorySubNav from "@/components/DirectorySubNav";
+import DirectorySection from "@/components/DirectorySection";
 import Intake from "@/components/Intake";
 import Footer from "@/components/Footer";
 import { SERVICES } from "@/lib/services";
@@ -18,10 +18,22 @@ export default function ServicesPage() {
     <>
       <Nav />
       <main>
-        <ServicesHero />
-        <ServicesSubNav />
+        <DirectoryHero
+          eyebrow="Services"
+          headline="The full technical bench, run as one system."
+          subhead="Seven capabilities, one team. Everything below runs together in practice, not as separate line items handed to separate vendors."
+          ctaLabel="Talk through your stack"
+          plateTitle="Service Directory"
+          kind="services"
+        />
+        <DirectorySubNav kind="services" />
         {SERVICES.map((service, i) => (
-          <ServiceSection key={service.slug} service={service} index={i} />
+          <DirectorySection
+            key={service.slug}
+            item={service}
+            index={i}
+            cardLabel="What's included"
+          />
         ))}
         <Intake />
       </main>

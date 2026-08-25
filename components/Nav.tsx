@@ -1,5 +1,5 @@
 import Link from "next/link";
-import MegaMenu from "@/components/MegaMenu";
+import NavMegaMenu from "@/components/NavMegaMenu";
 
 export default function Nav() {
   return (
@@ -15,7 +15,18 @@ export default function Nav() {
           />
         </Link>
         <div className="flex items-center gap-6">
-          <MegaMenu />
+          <NavMegaMenu
+            label="Services"
+            kind="services"
+            basePath="/services"
+            viewAllLabel="View all services"
+          />
+          <NavMegaMenu
+            label="Industries"
+            kind="industries"
+            basePath="/industries"
+            viewAllLabel="View all industries"
+          />
           <Link
             href="/#approach"
             className="hidden text-sm font-medium text-ink/65 transition-colors duration-150 hover:text-ink sm:block"

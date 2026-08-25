@@ -3,6 +3,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { SPRING_SETTLE, STAMP } from "@/lib/motion";
 import { SERVICES } from "@/lib/services";
+import { INDUSTRIES } from "@/lib/industries";
 
 function Screw({ className }: { className: string }) {
   return (
@@ -15,7 +16,25 @@ function Screw({ className }: { className: string }) {
   );
 }
 
-export default function ServicesHero() {
+export default function DirectoryHero({
+  eyebrow,
+  headline,
+  subhead,
+  ctaLabel,
+  plateTitle,
+  kind,
+}: {
+  eyebrow: string;
+  headline: string;
+  subhead: string;
+  ctaLabel: string;
+  plateTitle: string;
+  kind: "services" | "industries";
+}) {
+  // Resolved here rather than passed as a prop: these arrays carry live
+  // icon components, which a Server Component parent can't pass across
+  // the client boundary as serializable props.
+  const items = kind === "services" ? SERVICES : INDUSTRIES;
   const reduced = useReducedMotion();
 
   const settle = (delay: number) =>
@@ -35,25 +54,24 @@ export default function ServicesHero() {
             {...settle(0)}
             className="font-mono text-xs uppercase tracking-widest text-brass"
           >
-            Services
+            {eyebrow}
           </motion.span>
           <motion.h1
             {...settle(0.06)}
             className="mt-4 max-w-[18ch] text-balance font-display font-bold tracking-[-0.03em] text-ink"
             style={{ fontSize: "clamp(2rem, 4vw + 1rem, 3.5rem)" }}
           >
-            The full technical bench, run as one system.
+            {headline}
           </motion.h1>
           <motion.p {...settle(0.14)} className="mt-6 max-w-[54ch] text-lg text-ink/65">
-            Seven capabilities, one team. Everything below runs together in
-            practice, not as separate line items handed to separate vendors.
+            {subhead}
           </motion.p>
           <motion.div {...settle(0.2)} className="mt-10">
             <a
               href="#assessment"
               className="inline-block rounded-sm bg-brass px-6 py-3.5 font-display text-base font-bold text-ink transition-[transform,box-shadow] duration-150 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(199,123,39,0.4)] active:translate-y-0 active:scale-[0.97] active:shadow-[0_2px_8px_rgba(199,123,39,0.25)]"
             >
-              Talk through your stack
+              {ctaLabel}
             </a>
           </motion.div>
         </div>
@@ -78,20 +96,20 @@ export default function ServicesHero() {
                 className="mb-2 flex items-baseline justify-between border-b border-ink/20 px-2 pb-3"
               >
                 <span className="font-mono text-[11px] font-medium uppercase tracking-widest text-ink">
-                  Service Directory
+                  {plateTitle}
                 </span>
                 <span className="font-mono text-[11px] uppercase tracking-widest text-steel tabular">
-                  07 Total
+                  {String(items.length).padStart(2, "0")} Total
                 </span>
               </motion.div>
 
               <div className="grid grid-cols-2 gap-1">
-                {SERVICES.map((service, i) => {
-                  const Icon = service.icon;
+                {items.map((item, i) => {
+                  const Icon = item.icon;
                   return (
                     <motion.a
-                      key={service.slug}
-                      href={`#${service.slug}`}
+                      key={item.slug}
+                      href={`#${item.slug}`}
                       initial={reduced ? false : { opacity: 0, y: -4, scale: 1.04 }}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       transition={
@@ -103,7 +121,7 @@ export default function ServicesHero() {
                         <Icon className="h-4 w-4" strokeWidth={1.75} />
                       </span>
                       <span className="text-xs font-medium leading-tight text-ink">
-                        {service.label}
+                        {item.label}
                       </span>
                     </motion.a>
                   );
