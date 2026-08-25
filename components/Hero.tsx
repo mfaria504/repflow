@@ -3,11 +3,13 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { SPRING_SETTLE } from "@/lib/motion";
 
-// Fades the panel's left edge into the page background and lets the video
-// dissolve out of the dark base beneath it, rather than sitting on top of
-// a hard rectangle.
-const PANEL_MASK =
-  "linear-gradient(to right, transparent 0%, black 24%, black 100%)";
+// Slow, ambient playback for a decorative loop rather than the source clip's
+// native pace.
+const VIDEO_PLAYBACK_RATE = 0.5;
+
+function setSlowPlayback(el: HTMLVideoElement | null) {
+  if (el) el.playbackRate = VIDEO_PLAYBACK_RATE;
+}
 
 function HeroVideoPanel() {
   const reduced = useReducedMotion();
@@ -15,22 +17,23 @@ function HeroVideoPanel() {
   return (
     <div
       aria-hidden
-      className="pointer-events-none absolute inset-y-0 right-0 z-0 hidden w-[340px] lg:block xl:w-[420px] 2xl:w-[480px]"
-      style={{ maskImage: PANEL_MASK, WebkitMaskImage: PANEL_MASK }}
+      className="pointer-events-none absolute inset-y-0 right-0 z-0 hidden lg:block lg:w-[340px] xl:w-[420px] 2xl:w-[480px]"
     >
-      <div className="grain relative h-full w-full bg-ink">
-        <video
-          className="absolute inset-0 h-full w-full object-cover"
-          src="/hero-video.mp4"
-          autoPlay={!reduced}
-          loop={!reduced}
-          muted
-          playsInline
-          preload="auto"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-ink/25 via-transparent to-ink/40" />
-        <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/10 to-transparent" />
-      </div>
+      <video
+        ref={setSlowPlayback}
+        onLoadedMetadata={(e) => setSlowPlayback(e.currentTarget)}
+        className="absolute inset-0 h-full w-full object-cover"
+        src="/hero-video.mp4"
+        autoPlay={!reduced}
+        loop={!reduced}
+        muted
+        playsInline
+        preload="auto"
+      />
+      {/* Dissolves the video's left edge into the section's own dark base
+          so it reads as one continuous surface rather than a boxed insert. */}
+      <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/55 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-b from-ink/30 via-transparent to-ink/45" />
     </div>
   );
 }
@@ -48,13 +51,13 @@ export default function Hero() {
         };
 
   return (
-    <section id="top" className="relative overflow-hidden">
+    <section id="top" className="grain relative overflow-hidden bg-ink">
       <HeroVideoPanel />
 
       <div className="relative z-10 mx-auto max-w-6xl px-6 pb-20 pt-16 sm:pt-24 lg:pb-28">
         <div className="lg:max-w-xl">
           <motion.h1
-            className="text-balance font-display font-bold tracking-[-0.03em] text-ink"
+            className="text-balance font-display font-bold tracking-[-0.03em] text-white"
             style={{ fontSize: "clamp(2.25rem, 4.5vw + 1rem, 4rem)" }}
             {...settle(0.55)}
           >
@@ -62,7 +65,7 @@ export default function Hero() {
             agencies.
           </motion.h1>
           <motion.p
-            className="mt-6 max-w-[52ch] text-lg text-ink/65"
+            className="mt-6 max-w-[52ch] text-lg text-white/70"
             {...settle(0.65)}
           >
             One retainer runs your software, pipeline, data, and outreach as
@@ -81,8 +84,10 @@ export default function Hero() {
 
         {/* Below desktop the full-bleed panel is hidden, so the same clip runs here instead. */}
         <motion.div className="mt-12 lg:hidden" {...settle(0.8)}>
-          <div className="grain relative mx-auto aspect-[464/688] max-w-[320px] overflow-hidden rounded-sm bg-ink shadow-[0_12px_40px_rgba(34,38,43,0.25)]">
+          <div className="grain relative mx-auto aspect-[464/688] max-w-[320px] overflow-hidden rounded-sm border border-white/10 bg-ink shadow-[0_12px_40px_rgba(0,0,0,0.45)]">
             <video
+              ref={setSlowPlayback}
+              onLoadedMetadata={(e) => setSlowPlayback(e.currentTarget)}
               className="absolute inset-0 h-full w-full object-cover"
               src="/hero-video.mp4"
               autoPlay={!reduced}
