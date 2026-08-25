@@ -36,8 +36,8 @@ export default function FieldReport() {
         <Reveal delay={0.1}>
           <div className="mb-12 grid gap-2 font-mono text-sm sm:grid-cols-2">
             <p className="text-safety/65">
-              <span className="text-safety/40">SITE:</span> PSG, a regional
-              HVAC and mechanical rep agency
+              <span className="text-safety/40">SITE:</span> A regional HVAC
+              and mechanical rep agency
             </p>
             <p className="text-safety/65">
               <span className="text-safety/40">SCOPE:</span> Full RepFlow
