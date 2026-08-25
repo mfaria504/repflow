@@ -18,7 +18,7 @@ npm run dev
 
 ## Assessment form
 
-`POST /api/assess` handles the intake form. Set `FORM_WEBHOOK_URL` in the Vercel project to forward submissions to a webhook. Without it, submissions are logged to the Vercel function logs.
+`POST /api/assess` handles the intake form. Submissions are emailed to `matt@repflow.com` and `jess@repflow.com` via [Resend](https://resend.com) — set `RESEND_API_KEY` in the Vercel project, and `FORM_FROM_EMAIL` if the default sender (`forms@repflow.com`) isn't a verified sending address on the account. Optionally set `FORM_WEBHOOK_URL` to also forward submissions to a webhook (e.g. Zapier or Make). Submissions are always logged to the Vercel function logs regardless.
 
 ## Copy rules
 

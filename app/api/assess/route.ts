@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 
+const FORM_RECIPIENTS = ["matt@repflow.com", "jess@repflow.com"];
+
 export async function POST(request: Request) {
   let body: Record<string, unknown>;
   try {
@@ -29,7 +31,6 @@ export async function POST(request: Request) {
   };
 
   // Forward to a webhook (e.g. a Zapier or Make hook set in Vercel env vars).
-  // Falls back to logging so submissions are visible in Vercel function logs.
   const webhookUrl = process.env.FORM_WEBHOOK_URL;
   if (webhookUrl) {
     try {
@@ -40,11 +41,40 @@ export async function POST(request: Request) {
       });
     } catch (err) {
       console.error("assessment webhook forward failed", err);
-      console.log("assessment request", JSON.stringify(submission));
+    }
+  }
+
+  // Email the submission to the RepFlow team via Resend.
+  const resendApiKey = process.env.RESEND_API_KEY;
+  if (resendApiKey) {
+    try {
+      const res = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${resendApiKey}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          from: process.env.FORM_FROM_EMAIL ?? "RepFlow Forms <forms@repflow.com>",
+          to: FORM_RECIPIENTS,
+          reply_to: email,
+          subject: `New assessment request from ${agency}`,
+          text: `Name: ${name}\nAgency: ${agency}\nEmail: ${email}\n\n${message}`,
+        }),
+      });
+      if (!res.ok) {
+        console.error("assessment email send failed", await res.text());
+      }
+    } catch (err) {
+      console.error("assessment email send failed", err);
     }
   } else {
-    console.log("assessment request", JSON.stringify(submission));
+    console.error("RESEND_API_KEY not set, assessment email not sent");
   }
+
+  // Always log so submissions stay visible in Vercel function logs even
+  // when the webhook and/or email delivery above are unavailable.
+  console.log("assessment request", JSON.stringify(submission));
 
   return NextResponse.json({ ok: true });
 }
