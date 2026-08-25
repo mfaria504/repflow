@@ -60,7 +60,7 @@ export default function Hero() {
     <section id="top" className="grain relative overflow-hidden bg-midnight">
       <HeroVideoPanel />
 
-      <div className="relative z-10 mx-auto max-w-6xl px-6 pb-20 pt-16 sm:pt-24 lg:pb-28">
+      <div className="relative z-10 mx-auto max-w-6xl px-6 pb-10 pt-16 sm:pt-24 lg:pb-28">
         <div className="lg:max-w-xl">
           <motion.h1
             className="text-balance font-display font-bold tracking-[-0.03em] text-white"
@@ -87,24 +87,35 @@ export default function Hero() {
             </a>
           </motion.div>
         </div>
-
-        {/* Below desktop the full-bleed panel is hidden, so the same clip runs here instead. */}
-        <motion.div className="mt-12 lg:hidden" {...settle(0.8)}>
-          <div className="grain relative mx-auto aspect-[464/688] max-w-[320px] overflow-hidden rounded-sm border border-white/10 bg-midnight shadow-[0_12px_40px_rgba(0,0,0,0.45)]">
-            <video
-              ref={setSlowPlayback}
-              onLoadedMetadata={(e) => setSlowPlayback(e.currentTarget)}
-              className="absolute inset-0 h-full w-full object-cover"
-              src="/hero-video.mp4"
-              autoPlay={!reduced}
-              loop={!reduced}
-              muted
-              playsInline
-              preload="auto"
-            />
-          </div>
-        </motion.div>
       </div>
+
+      {/* Below desktop the full-bleed right panel is hidden, so the same
+          clip runs here instead: full width, docked to the section's
+          bottom edge, dissolving in from the top. */}
+      <motion.div
+        aria-hidden
+        className="relative aspect-[464/688] w-full lg:hidden"
+        {...settle(0.8)}
+      >
+        <video
+          ref={setSlowPlayback}
+          onLoadedMetadata={(e) => setSlowPlayback(e.currentTarget)}
+          className="absolute inset-0 h-full w-full object-cover"
+          src="/hero-video.mp4"
+          autoPlay={!reduced}
+          loop={!reduced}
+          muted
+          playsInline
+          preload="auto"
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage:
+              "linear-gradient(to bottom, rgba(var(--midnight-rgb), 0.9) 0%, rgba(var(--midnight-rgb), 0) 22%)",
+          }}
+        />
+      </motion.div>
     </section>
   );
 }
