@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
+import { SPRING } from "@/lib/motion";
 import { SERVICES } from "@/lib/services";
 import { INDUSTRIES } from "@/lib/industries";
 
@@ -15,6 +17,7 @@ export default function DirectorySubNav({
   const items = kind === "services" ? SERVICES : INDUSTRIES;
   const [active, setActive] = useState(items[0].slug);
   const ref = useRef<HTMLDivElement>(null);
+  const reduced = useReducedMotion();
 
   useEffect(() => {
     const sections = items
@@ -49,20 +52,33 @@ export default function DirectorySubNav({
         ref={ref}
         className="mx-auto flex max-w-6xl gap-1 overflow-x-auto px-6 py-3 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
-        {items.map((item) => (
-          <a
-            key={item.slug}
-            href={`#${item.slug}`}
-            data-slug={item.slug}
-            className={`shrink-0 rounded-sm px-3.5 py-1.5 font-mono text-xs uppercase tracking-widest transition-colors duration-200 ${
-              active === item.slug
-                ? "bg-ink text-safety"
-                : "text-ink/55 hover:text-ink"
-            }`}
-          >
-            {item.label}
-          </a>
-        ))}
+        {items.map((item) => {
+          const isActive = active === item.slug;
+          return (
+            <a
+              key={item.slug}
+              href={`#${item.slug}`}
+              data-slug={item.slug}
+              onClick={() => setActive(item.slug)}
+              className="relative shrink-0 rounded-sm px-3.5 py-1.5 font-mono text-xs uppercase tracking-widest"
+            >
+              {isActive && (
+                <motion.span
+                  layoutId="subnav-pill"
+                  className="absolute inset-0 rounded-sm bg-ink"
+                  transition={reduced ? { duration: 0 } : SPRING}
+                />
+              )}
+              <span
+                className={`relative z-10 transition-colors duration-200 ${
+                  isActive ? "text-safety" : "text-ink/55 hover:text-ink"
+                }`}
+              >
+                {item.label}
+              </span>
+            </a>
+          );
+        })}
       </div>
     </div>
   );
