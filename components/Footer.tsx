@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Footer() {
   return (
     <footer className="bg-ink text-safety">
@@ -11,6 +13,12 @@ export default function Footer() {
           </p>
         </div>
         <div className="flex flex-col items-start gap-2 sm:items-end">
+          <Link
+            href="/services"
+            className="text-sm font-medium text-safety/80 transition-colors duration-150 hover:text-safety"
+          >
+            Services
+          </Link>
           <a
             href="#assessment"
             className="text-sm font-medium text-safety/80 transition-colors duration-150 hover:text-safety"

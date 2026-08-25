@@ -1,0 +1,118 @@
+"use client";
+
+import { motion, useReducedMotion } from "framer-motion";
+import { SPRING_SETTLE, STAMP } from "@/lib/motion";
+import { SERVICES } from "@/lib/services";
+
+function Screw({ className }: { className: string }) {
+  return (
+    <span
+      aria-hidden
+      className={`absolute h-2.5 w-2.5 rounded-full border border-steel/60 bg-paper ${className}`}
+    >
+      <span className="absolute left-1/2 top-1/2 h-px w-1.5 -translate-x-1/2 -translate-y-1/2 rotate-45 bg-steel/70" />
+    </span>
+  );
+}
+
+export default function ServicesHero() {
+  const reduced = useReducedMotion();
+
+  const settle = (delay: number) =>
+    reduced
+      ? {}
+      : {
+          initial: { opacity: 0, y: 24 },
+          animate: { opacity: 1, y: 0 },
+          transition: { ...SPRING_SETTLE, delay },
+        };
+
+  return (
+    <section className="relative overflow-hidden border-b border-ink/10">
+      <div className="mx-auto grid max-w-6xl items-center gap-12 px-6 pb-16 pt-14 sm:pt-20 lg:grid-cols-[1fr_400px] lg:gap-16 lg:pb-24">
+        <div>
+          <motion.span
+            {...settle(0)}
+            className="font-mono text-xs uppercase tracking-widest text-brass"
+          >
+            Services
+          </motion.span>
+          <motion.h1
+            {...settle(0.06)}
+            className="mt-4 max-w-[18ch] text-balance font-display font-bold tracking-[-0.03em] text-ink"
+            style={{ fontSize: "clamp(2rem, 4vw + 1rem, 3.5rem)" }}
+          >
+            The full technical bench, run as one system.
+          </motion.h1>
+          <motion.p {...settle(0.14)} className="mt-6 max-w-[54ch] text-lg text-ink/65">
+            Seven capabilities, one team. Everything below runs together in
+            practice, not as separate line items handed to separate vendors.
+          </motion.p>
+          <motion.div {...settle(0.2)} className="mt-10">
+            <a
+              href="#assessment"
+              className="inline-block rounded-sm bg-brass px-6 py-3.5 font-display text-base font-bold text-ink transition-[transform,box-shadow] duration-150 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(199,123,39,0.4)] active:translate-y-0 active:scale-[0.97] active:shadow-[0_2px_8px_rgba(199,123,39,0.25)]"
+            >
+              Talk through your stack
+            </a>
+          </motion.div>
+        </div>
+
+        <motion.div
+          className="relative lg:rotate-1"
+          initial={reduced ? false : { opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.2 }}
+        >
+          <div className="relative rounded-sm bg-safety p-5 shadow-[0_12px_40px_rgba(43,76,111,0.14),0_2px_8px_rgba(34,38,43,0.08)] sm:p-6">
+            <Screw className="left-1.5 top-1.5" />
+            <Screw className="right-1.5 top-1.5" />
+            <Screw className="bottom-1.5 left-1.5" />
+            <Screw className="bottom-1.5 right-1.5" />
+
+            <div className="relative px-1.5 py-1">
+              <motion.div
+                initial={reduced ? false : { opacity: 0, y: -4, scale: 1.04 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={reduced ? { duration: 0 } : { ...STAMP, delay: 0.22 }}
+                className="mb-2 flex items-baseline justify-between border-b border-ink/20 px-2 pb-3"
+              >
+                <span className="font-mono text-[11px] font-medium uppercase tracking-widest text-ink">
+                  Service Directory
+                </span>
+                <span className="font-mono text-[11px] uppercase tracking-widest text-steel tabular">
+                  07 Total
+                </span>
+              </motion.div>
+
+              <div className="grid grid-cols-2 gap-1">
+                {SERVICES.map((service, i) => {
+                  const Icon = service.icon;
+                  return (
+                    <motion.a
+                      key={service.slug}
+                      href={`#${service.slug}`}
+                      initial={reduced ? false : { opacity: 0, y: -4, scale: 1.04 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      transition={
+                        reduced ? { duration: 0 } : { ...STAMP, delay: 0.28 + i * 0.04 }
+                      }
+                      className="group flex flex-col gap-2 rounded-sm border border-transparent p-2.5 transition-colors duration-150 hover:border-ink/10 hover:bg-paper"
+                    >
+                      <span className="flex h-8 w-8 items-center justify-center rounded-sm border border-ink/15 bg-paper text-brass transition-transform duration-200 group-hover:-translate-y-0.5">
+                        <Icon className="h-4 w-4" strokeWidth={1.75} />
+                      </span>
+                      <span className="text-xs font-medium leading-tight text-ink">
+                        {service.label}
+                      </span>
+                    </motion.a>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
