@@ -2,8 +2,8 @@ import Reveal from "@/components/Reveal";
 
 const LINES = [
   "Most agencies still run on spreadsheets and memory.",
-  "Commissions get reconciled by hand. Follow-up happens when someone remembers.",
-  "It works, until it doesn't scale.",
+  "The fix is technology, and nobody in the building has time to build it, run it, and keep it working.",
+  "Your reps should be selling. That's the whole point.",
 ];
 
 export default function Problem() {

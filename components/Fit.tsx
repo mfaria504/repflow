@@ -12,8 +12,8 @@ export default function Fit() {
               </span>
               <p className="mt-4 text-xl font-medium leading-snug text-ink sm:text-2xl">
                 Built for agencies actively growing: adding lines, adding
-                territory, building toward something bigger than one
-                founder&apos;s contact list.
+                territory, and ready to hand the technology to someone whose
+                job it is.
               </p>
             </div>
           </Reveal>
