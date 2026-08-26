@@ -74,9 +74,9 @@ export default function Hero() {
             className="mt-6 max-w-[52ch] text-lg text-white/70"
             {...settle(0.65)}
           >
-            One retainer runs your software, pipeline, data, and outreach as
-            a single system — built by someone who&apos;s actually run a rep
-            agency, not learning on yours.
+            We work inside your organization to help achieve sales by
+            improving operational efficiencies and implementing the latest
+            technology solutions.
           </motion.p>
           <motion.div className="mt-10" {...settle(0.73)}>
             <a
