@@ -23,7 +23,7 @@ export default function IndustriesPage() {
         <DirectoryHero
           eyebrow="Industries"
           headline="One back office. Built for how each trade actually sells."
-          subhead="HVAC is where this started. The same rep-agency discipline runs across every trade that sells through independent reps and distributors."
+          subhead="HVAC is where this started. The same revenue technology runs across every trade that sells through independent reps and distributors."
           ctaLabel="Talk about your industry"
           plateTitle="Industry Directory"
           kind="industries"
