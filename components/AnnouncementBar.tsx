@@ -21,7 +21,7 @@ function Message({ hidden = false }: { hidden?: boolean }) {
 export default function AnnouncementBar() {
   return (
     <div className="bg-cobalt text-white">
-      <div className="mx-auto flex max-w-6xl items-center gap-4 px-6 py-2.5">
+      <div className="flex w-full items-center gap-4 px-6 py-2.5">
         <div className="min-w-0 flex-1 overflow-hidden [-webkit-mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
           <div className="flex w-max animate-marquee">
             <Message />
