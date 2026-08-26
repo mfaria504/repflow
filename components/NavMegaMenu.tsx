@@ -5,9 +5,64 @@ import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { SPRING } from "@/lib/motion";
-import { SERVICES } from "@/lib/services";
+import { SERVICES, type Service } from "@/lib/services";
 import { INDUSTRIES } from "@/lib/industries";
 import { ACCENT_CLASSES } from "@/lib/accents";
+
+const SERVICE_PILLARS = [
+  { key: "build", label: "Build" },
+  { key: "run", label: "Run" },
+] as const;
+
+function MenuItem({
+  item,
+  basePath,
+  delay,
+  reduced,
+  className = "",
+  linkClassName = "",
+  onNavigate,
+}: {
+  item: Service;
+  basePath: string;
+  delay: number;
+  reduced: boolean | null;
+  className?: string;
+  linkClassName?: string;
+  onNavigate: () => void;
+}) {
+  const Icon = item.icon;
+  const accent = ACCENT_CLASSES[item.accent];
+  return (
+    <motion.div
+      initial={reduced ? false : { opacity: 0, y: -6 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.18, delay: reduced ? 0 : delay }}
+      className={`bg-safety ${className}`}
+    >
+      <Link
+        href={`${basePath}#${item.slug}`}
+        role="menuitem"
+        onClick={onNavigate}
+        className={`group flex items-start gap-4 px-5 py-4 transition-colors duration-150 hover:bg-paper ${linkClassName}`}
+      >
+        <span
+          className={`mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-sm border bg-paper transition-transform duration-200 group-hover:-translate-y-0.5 ${accent.text} ${accent.border} ${accent.shadow}`}
+        >
+          <Icon className="h-[18px] w-[18px]" strokeWidth={1.75} />
+        </span>
+        <span>
+          <span className="block font-display text-[15px] font-bold tracking-[-0.01em] text-ink">
+            {item.label}
+          </span>
+          <span className="mt-1 block text-[13px] leading-snug text-ink/60">
+            {item.blurb}
+          </span>
+        </span>
+      </Link>
+    </motion.div>
+  );
+}
 
 export default function NavMegaMenu({
   label,
@@ -122,48 +177,66 @@ export default function NavMegaMenu({
               exit={reduced ? undefined : { opacity: 0, y: -6, scale: 0.99 }}
               transition={SPRING}
             >
-              <div className="grid gap-px bg-ink/10 sm:grid-cols-2">
-                {items.map((item, i) => {
-                  const Icon = item.icon;
-                  const isLastOdd = lastSpans2 && i === items.length - 1;
-                  const accent = ACCENT_CLASSES[item.accent];
-                  return (
-                    <motion.div
-                      key={item.slug}
-                      initial={reduced ? false : { opacity: 0, y: -6 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{
-                        duration: 0.18,
-                        delay: reduced ? 0 : i * 0.035,
-                      }}
-                      className={`bg-safety ${isLastOdd ? "sm:col-span-2" : ""}`}
+              {kind === "services" ? (
+                <>
+                  <div className="grid gap-px bg-ink/10 sm:grid-cols-2">
+                    {SERVICE_PILLARS.map((pillar, gi) => (
+                      <div key={pillar.key} className="bg-safety">
+                        <div className="border-b border-ink/10 px-5 pb-2 pt-4">
+                          <span className="font-mono text-[11px] uppercase tracking-widest text-brass">
+                            {pillar.label}
+                          </span>
+                        </div>
+                        {items
+                          .filter((item) => item.pillar === pillar.key)
+                          .map((item, i) => (
+                            <MenuItem
+                              key={item.slug}
+                              item={item}
+                              basePath={basePath}
+                              delay={(gi * 3 + i) * 0.035}
+                              reduced={reduced}
+                              onNavigate={() => setOpen(false)}
+                            />
+                          ))}
+                      </div>
+                    ))}
+                  </div>
+                  <div className="border-t border-ink/15 bg-safety px-5 py-3.5">
+                    <Link
+                      href="/#approach"
+                      role="menuitem"
+                      onClick={() => setOpen(false)}
+                      className="group flex flex-wrap items-center gap-x-2 gap-y-1 text-[13px] text-ink/60 transition-colors duration-150 hover:text-ink"
                     >
-                      <Link
-                        href={`${basePath}#${item.slug}`}
-                        role="menuitem"
-                        onClick={() => setOpen(false)}
-                        className={`group flex items-start gap-4 px-5 py-4 transition-colors duration-150 hover:bg-paper ${
-                          isLastOdd ? "sm:max-w-[50%]" : ""
-                        }`}
-                      >
-                        <span
-                          className={`mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-sm border bg-paper transition-transform duration-200 group-hover:-translate-y-0.5 ${accent.text} ${accent.border} ${accent.shadow}`}
-                        >
-                          <Icon className="h-[18px] w-[18px]" strokeWidth={1.75} />
-                        </span>
-                        <span>
-                          <span className="block font-display text-[15px] font-bold tracking-[-0.01em] text-ink">
-                            {item.label}
-                          </span>
-                          <span className="mt-1 block text-[13px] leading-snug text-ink/60">
-                            {item.blurb}
-                          </span>
-                        </span>
-                      </Link>
-                    </motion.div>
-                  );
-                })}
-              </div>
+                      <span className="font-mono text-[11px] uppercase tracking-widest text-brass">
+                        Solve
+                      </span>
+                      Something else slowing your reps down? That&apos;s the
+                      third job.
+                      <ArrowRight className="h-3.5 w-3.5 transition-transform duration-150 group-hover:translate-x-0.5" />
+                    </Link>
+                  </div>
+                </>
+              ) : (
+                <div className="grid gap-px bg-ink/10 sm:grid-cols-2">
+                  {items.map((item, i) => {
+                    const isLastOdd = lastSpans2 && i === items.length - 1;
+                    return (
+                      <MenuItem
+                        key={item.slug}
+                        item={item}
+                        basePath={basePath}
+                        delay={i * 0.035}
+                        reduced={reduced}
+                        className={isLastOdd ? "sm:col-span-2" : ""}
+                        linkClassName={isLastOdd ? "sm:max-w-[50%]" : ""}
+                        onNavigate={() => setOpen(false)}
+                      />
+                    );
+                  })}
+                </div>
+              )}
 
               <div className="border-t border-ink/15 bg-paper px-5 py-3.5">
                 <Link
