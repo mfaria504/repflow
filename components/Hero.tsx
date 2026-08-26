@@ -60,7 +60,7 @@ export default function Hero() {
     <section
       id="top"
       className="grain relative overflow-hidden"
-      style={{ background: "linear-gradient(to bottom, #141b1f 0%, #060809 100%)" }}
+      style={{ background: "linear-gradient(to bottom, #141b1f 0%, #060a0b 100%)" }}
     >
       <HeroVideoPanel />
 
