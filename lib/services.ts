@@ -78,13 +78,13 @@ export const SERVICES: Service[] = [
   },
   {
     slug: "marketing-ops",
-    label: "Marketing Ops",
+    label: "Sales and Marketing Ops",
     icon: Settings2,
     accent: "steel",
     pattern: "diagonal-hatch",
-    blurb: "The operations layer that makes marketing numbers hold up.",
-    headline: "The operations layer behind the marketing.",
-    body: "Marketing tools connected and instrumented properly: tracking that's accurate, attribution that holds up, and campaigns that report real numbers instead of vanity metrics.",
+    blurb: "The operations layer that makes sales and marketing numbers hold up.",
+    headline: "The operations layer behind sales and marketing.",
+    body: "Sales and marketing tools connected and instrumented properly: tracking that's accurate, attribution that holds up, and campaigns and pipeline that report real numbers instead of vanity metrics.",
     bullets: [
       "Tracking and attribution setup",
       "Campaign and asset workflows",
