@@ -77,23 +77,24 @@ export default function Hero() {
             style={{ fontSize: "clamp(2.25rem, 4.5vw + 1rem, 4rem)" }}
             {...settle(0.55)}
           >
-            The technology partner built for manufacturers&apos; rep
+            The revenue technology partner for manufacturers&apos; rep
             agencies.
           </motion.h1>
           <motion.p
             className="mt-6 max-w-[52ch] text-lg text-white/70"
             {...settle(0.65)}
           >
-            We work inside your organization to help achieve sales by
-            improving operational efficiencies and implementing the latest
-            technology solutions.
+            We work inside your agency to build, run, and optimize the
+            technology behind your sales: the tools, the data, the digital
+            infrastructure. Your reps stay in the field. The systems are our
+            problem.
           </motion.p>
           <motion.div className="mt-10" {...settle(0.73)}>
             <a
               href="#assessment"
               className="inline-block rounded-sm bg-brass px-6 py-3.5 font-display text-base font-bold text-white transition-[transform,box-shadow] duration-150 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(199,123,39,0.4)] active:translate-y-0 active:scale-[0.97] active:shadow-[0_2px_8px_rgba(199,123,39,0.25)]"
             >
-              Request a RevOps Assessment
+              Request an Assessment
             </a>
           </motion.div>
         </div>
