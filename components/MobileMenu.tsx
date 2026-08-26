@@ -10,6 +10,11 @@ import { SERVICES } from "@/lib/services";
 import { INDUSTRIES } from "@/lib/industries";
 import { ACCENT_CLASSES } from "@/lib/accents";
 
+const SERVICE_PILLARS = [
+  { key: "build", label: "Build" },
+  { key: "run", label: "Run" },
+] as const;
+
 const GROUPS = [
   { key: "services", label: "Services", basePath: "/services", items: SERVICES },
   { key: "industries", label: "Industries", basePath: "/industries", items: INDUSTRIES },
@@ -123,27 +128,63 @@ export default function MobileMenu() {
                               className="overflow-hidden bg-safety"
                             >
                               <div className="flex flex-col divide-y divide-ink/10">
-                                {group.items.map((item) => {
-                                  const Icon = item.icon;
-                                  const accent = ACCENT_CLASSES[item.accent];
-                                  return (
-                                    <Link
-                                      key={item.slug}
-                                      href={`${group.basePath}#${item.slug}`}
-                                      onClick={closeMenu}
-                                      className="flex items-center gap-3.5 px-6 py-3.5"
+                                {(group.key === "services"
+                                  ? SERVICE_PILLARS.flatMap((pillar) => [
+                                      { header: pillar.label },
+                                      ...group.items.filter(
+                                        (item) => item.pillar === pillar.key,
+                                      ),
+                                    ])
+                                  : [...group.items]
+                                ).map((entry) =>
+                                  "header" in entry ? (
+                                    <span
+                                      key={entry.header}
+                                      className="px-6 pb-1.5 pt-3.5 font-mono text-[11px] uppercase tracking-widest text-brass"
                                     >
-                                      <span
-                                        className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-sm border bg-paper ${accent.text} ${accent.border}`}
-                                      >
-                                        <Icon className="h-4 w-4" strokeWidth={1.75} />
-                                      </span>
-                                      <span className="text-[15px] font-medium text-ink">
-                                        {item.label}
-                                      </span>
-                                    </Link>
-                                  );
-                                })}
+                                      {entry.header}
+                                    </span>
+                                  ) : (
+                                    (() => {
+                                      const item = entry;
+                                      const Icon = item.icon;
+                                      const accent = ACCENT_CLASSES[item.accent];
+                                      return (
+                                        <Link
+                                          key={item.slug}
+                                          href={`${group.basePath}#${item.slug}`}
+                                          onClick={closeMenu}
+                                          className="flex items-center gap-3.5 px-6 py-3.5"
+                                        >
+                                          <span
+                                            className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-sm border bg-paper ${accent.text} ${accent.border}`}
+                                          >
+                                            <Icon
+                                              className="h-4 w-4"
+                                              strokeWidth={1.75}
+                                            />
+                                          </span>
+                                          <span className="text-[15px] font-medium text-ink">
+                                            {item.label}
+                                          </span>
+                                        </Link>
+                                      );
+                                    })()
+                                  ),
+                                )}
+                                {group.key === "services" && (
+                                  <Link
+                                    href="/#approach"
+                                    onClick={closeMenu}
+                                    className="px-6 py-3.5 text-sm text-ink/60"
+                                  >
+                                    <span className="font-mono text-[11px] uppercase tracking-widest text-brass">
+                                      Solve
+                                    </span>{" "}
+                                    Something else slowing your reps down?
+                                    That&apos;s the third job.
+                                  </Link>
+                                )}
                                 <Link
                                   href={group.basePath}
                                   onClick={closeMenu}
