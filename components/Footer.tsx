@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import FooterLogo from "@/components/FooterLogo";
 import { SERVICES } from "@/lib/services";
 import { INDUSTRIES } from "@/lib/industries";
 
@@ -23,11 +24,8 @@ export default function Footer() {
       <div className="relative mx-auto max-w-6xl px-6 py-16 sm:py-20">
         <div className="grid gap-12 lg:grid-cols-[1.1fr_2fr] lg:gap-16">
           <div>
-            <Link href="/#top" className="flex items-center gap-2">
-              <span className="h-2 w-2 rounded-full bg-brass" aria-hidden />
-              <span className="font-display text-lg font-bold tracking-tight">
-                RepFlow
-              </span>
+            <Link href="/#top" className="inline-block" aria-label="RepFlow">
+              <FooterLogo className="h-8 w-auto" />
             </Link>
             <p className="mt-4 max-w-[30ch] text-sm leading-relaxed text-safety/55">
               The revenue technology partner for manufacturers&apos; rep
