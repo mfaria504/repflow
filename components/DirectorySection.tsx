@@ -37,6 +37,9 @@ export default function DirectorySection({
               </span>
               <span className="font-mono text-xs uppercase tracking-widest text-steel">
                 {String(index + 1).padStart(2, "0")} · {item.label}
+                {item.pillar && (
+                  <span className="text-brass"> · {item.pillar}</span>
+                )}
               </span>
             </div>
             <h2 className="max-w-[22ch] font-display text-2xl font-bold tracking-[-0.02em] text-ink sm:text-3xl">
