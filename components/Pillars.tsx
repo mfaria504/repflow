@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
+import { Hammer, LifeBuoy, RefreshCw } from "lucide-react";
 import { SPRING } from "@/lib/motion";
 
 const RECENT_REQUESTS = [
@@ -26,6 +27,7 @@ const ITEMS = [
   {
     no: "01",
     name: "Build",
+    icon: Hammer,
     desc: "The tools and automations your team actually needs. Built around how your agency sells, then maintained so they keep working.",
     bullets: [
       "Quoting and commission tools built to your lines",
@@ -36,6 +38,7 @@ const ITEMS = [
   {
     no: "02",
     name: "Run",
+    icon: RefreshCw,
     desc: "The stack behind your sales, managed month after month. The website, the marketing infrastructure, the data, the tracking.",
     bullets: [
       "Website managed and kept current",
@@ -47,6 +50,7 @@ const ITEMS = [
   {
     no: "03",
     name: "Solve",
+    icon: LifeBuoy,
     desc: "When a rep needs something, they lean on us. A contact list for new territory. A quoting process that's too slow. Whatever surfaces, we handle it so your reps keep selling.",
     bullets: [],
   },
@@ -95,9 +99,17 @@ export default function Pillars() {
                 <span className="font-mono text-sm text-brass tabular">
                   {item.no}
                 </span>
-                <h3 className="font-display text-xl font-bold tracking-[-0.01em] text-ink">
-                  {item.name}
-                </h3>
+                <div className="flex items-center gap-2.5 self-center">
+                  <span
+                    aria-hidden
+                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-sm border border-ink/15 bg-paper text-brass"
+                  >
+                    <item.icon className="h-4 w-4" strokeWidth={1.75} />
+                  </span>
+                  <h3 className="font-display text-xl font-bold tracking-[-0.01em] text-ink">
+                    {item.name}
+                  </h3>
+                </div>
                 <p className="col-start-2 text-base text-ink/65 sm:col-start-3">
                   {item.desc}
                 </p>
