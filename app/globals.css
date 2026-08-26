@@ -4,7 +4,7 @@
   /* RepFlow design tokens, Section 4 of the roadmap */
   --color-paper: #edebe4;
   --color-ink: #22262b;
-  --color-midnight: #090d0f;
+  --color-midnight: #060809;
   --color-brass: #c77b27;
   --color-blueprint: #2b4c6f;
   --color-steel: #8b8f94;
@@ -23,7 +23,7 @@
   --brass-rgb: 199, 123, 39;
   --blueprint-rgb: 43, 76, 111;
   --ink-rgb: 34, 38, 43;
-  --midnight-rgb: 9, 13, 15;
+  --midnight-rgb: 6, 8, 9;
   --flare-rgb: 190, 157, 129;
 }
 
