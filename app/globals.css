@@ -10,6 +10,7 @@
   --color-steel: #8b8f94;
   --color-safety: #fafaf8;
   --color-cobalt: #5a5aff;
+  --color-flare: #be9d81;
 }
 
 @theme inline {
@@ -23,6 +24,7 @@
   --blueprint-rgb: 43, 76, 111;
   --ink-rgb: 34, 38, 43;
   --midnight-rgb: 9, 13, 15;
+  --flare-rgb: 190, 157, 129;
 }
 
 html {
