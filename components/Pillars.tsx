@@ -25,7 +25,6 @@ const RECENT_REQUESTS = [
 
 const ITEMS = [
   {
-    no: "01",
     name: "Build",
     icon: Hammer,
     desc: "The tools and automations your team actually needs. Built around how your agency sells, then maintained so they keep working.",
@@ -36,7 +35,6 @@ const ITEMS = [
     ],
   },
   {
-    no: "02",
     name: "Run",
     icon: RefreshCw,
     desc: "The stack behind your sales, managed month after month. The website, the marketing infrastructure, the data, the tracking.",
@@ -48,7 +46,6 @@ const ITEMS = [
     ],
   },
   {
-    no: "03",
     name: "Solve",
     icon: LifeBuoy,
     desc: "When a rep needs something, they lean on us. A contact list for new territory. A quoting process that's too slow. Whatever surfaces, we handle it so your reps keep selling.",
@@ -87,7 +84,7 @@ export default function Pillars() {
 
           {ITEMS.map((item, i) => (
             <motion.div
-              key={item.no}
+              key={item.name}
               className="group cursor-default border-b border-ink/10 px-6 py-6 transition-shadow duration-200 last:border-b-0 hover:bg-safety hover:shadow-[0_6px_20px_rgba(199,123,39,0.16)] sm:px-8"
               initial={reduced ? false : { opacity: 0, y: 16 }}
               whileInView={reduced ? {} : { opacity: 1, y: 0 }}
@@ -95,11 +92,8 @@ export default function Pillars() {
               viewport={{ once: true, margin: "-60px" }}
               transition={{ ...SPRING, delay: i * 0.09 }}
             >
-              <div className="grid grid-cols-[3rem_1fr] items-baseline gap-4 sm:grid-cols-[4rem_minmax(0,18rem)_1fr]">
-                <span className="font-mono text-sm text-brass tabular">
-                  {item.no}
-                </span>
-                <div className="flex items-center gap-2.5 self-center">
+              <div className="grid gap-4 sm:grid-cols-[minmax(0,16rem)_1fr]">
+                <div className="flex items-center gap-2.5">
                   <span
                     aria-hidden
                     className="flex h-8 w-8 shrink-0 items-center justify-center rounded-sm border border-ink/15 bg-paper text-brass"
@@ -110,12 +104,10 @@ export default function Pillars() {
                     {item.name}
                   </h3>
                 </div>
-                <p className="col-start-2 text-base text-ink/65 sm:col-start-3">
-                  {item.desc}
-                </p>
+                <p className="text-base text-ink/65">{item.desc}</p>
               </div>
               {item.bullets.length > 0 && (
-                <ul className="mt-4 grid gap-2 pl-[3.75rem] sm:pl-[4.75rem]">
+                <ul className="mt-4 grid gap-2 pl-[2.65rem]">
                   {item.bullets.map((bullet) => (
                     <li
                       key={bullet}
@@ -131,7 +123,7 @@ export default function Pillars() {
                 </ul>
               )}
               {item.name === "Solve" && (
-                <div className="mt-4 pl-[3.75rem] sm:pl-[4.75rem]">
+                <div className="mt-4 pl-[2.65rem]">
                   <span className="font-mono text-[11px] uppercase tracking-widest text-steel">
                     Recent requests: the pattern, not the menu
                   </span>
