@@ -11,7 +11,7 @@ import { SERVICES } from "@/lib/services";
 export const metadata: Metadata = {
   title: "Services · RepFlow",
   description:
-    "Artificial intelligence, CRM implementation, automation, demand generation, marketing ops, data management, and MSP solutions, run as one system.",
+    "Artificial intelligence, CRM implementation, automation, demand generation, sales and marketing ops, data management, and MSP solutions, run as one system.",
 };
 
 export default function ServicesPage() {
