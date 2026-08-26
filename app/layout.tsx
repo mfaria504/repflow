@@ -22,13 +22,13 @@ const plexMono = IBM_Plex_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://repflow.com"),
-  title: "RepFlow. Fractional RevOps for rep agencies.",
+  title: "RepFlow. The revenue technology partner for rep agencies.",
   description:
-    "The technology partner built for manufacturers' rep agencies. Run by someone who's actually run one. One retainer covers the software, the pipeline, the data, and the communications.",
+    "RepFlow is the revenue technology partner for manufacturers' rep agencies. We build the tools, run the stack, and solve what comes up so your reps can sell. Run by someone who's actually run an agency.",
   openGraph: {
-    title: "RepFlow. Fractional RevOps for rep agencies.",
+    title: "RepFlow. The revenue technology partner for rep agencies.",
     description:
-      "One retainer. The software, the pipeline, the data, and the communications. Run for you.",
+      "Build. Run. Solve. The technology behind your sales, handled, so your reps can sell.",
     url: "https://repflow.com",
     siteName: "RepFlow",
     type: "website",

@@ -30,9 +30,9 @@ export default function Footer() {
               </span>
             </Link>
             <p className="mt-4 max-w-[30ch] text-sm leading-relaxed text-safety/55">
-              Fractional RevOps for manufacturers&apos; representative
-              agencies. One retainer for the software, the pipeline, the
-              data, and the communications.
+              The revenue technology partner for manufacturers&apos; rep
+              agencies. We build the tools, run the stack, and solve what
+              comes up so your reps can sell.
             </p>
             <a
               href="/#assessment"
@@ -96,6 +96,11 @@ export default function Footer() {
                   </Link>
                 </li>
                 <li>
+                  <Link href="/#ai" className={linkClass}>
+                    AI
+                  </Link>
+                </li>
+                <li>
                   <a href="/#assessment" className={linkClass}>
                     Request an Assessment
                   </a>
@@ -110,7 +115,7 @@ export default function Footer() {
             © 2026 RepFlow. All rights reserved.
           </span>
           <span className="font-mono text-xs uppercase tracking-widest text-safety/30">
-            Fractional RevOps · Manufacturers&apos; Rep Agencies
+            Revenue Technology Partner · Manufacturers&apos; Rep Agencies
           </span>
         </div>
       </div>

@@ -10,6 +10,8 @@ export type Pattern =
   | "diagonal-hatch"
   | "orbit-arc";
 
+export type Pillar = "build" | "run" | "solve";
+
 export type DirectoryEntry = {
   slug: string;
   label: string;
@@ -20,4 +22,7 @@ export type DirectoryEntry = {
   headline: string;
   body: string;
   bullets: string[];
+  // Which of the three jobs (Build / Run / Solve) this capability serves.
+  // Only set for services; industries entries leave it unset.
+  pillar?: Pillar;
 };

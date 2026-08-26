@@ -7,7 +7,7 @@ const BLOCKS = [
   },
   {
     heading: "Built",
-    body: "The RepFlow platform, live. Quoting, price books, and pipeline in one place. Commission reconciliation run monthly as a system. A distributor newsletter, sent on schedule.",
+    body: "The RepFlow platform, live. Quoting, price books, and pipeline in one place. Commission reconciliation built once, then run monthly. A distributor newsletter, sent on schedule.",
   },
   {
     heading: "Result",
@@ -40,8 +40,8 @@ export default function FieldReport() {
               and mechanical rep agency
             </p>
             <p className="text-safety/65">
-              <span className="text-safety/40">SCOPE:</span> Full RepFlow
-              retainer, all four lines
+              <span className="text-safety/40">SCOPE:</span> Build and run,
+              full stack
             </p>
           </div>
         </Reveal>

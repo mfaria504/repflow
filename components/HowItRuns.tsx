@@ -9,12 +9,12 @@ const STEPS = [
   {
     no: "02",
     name: "Build",
-    desc: "The platform, the pipeline, the data. Configured to your lines and your territory.",
+    desc: "The first tools and the stack, configured to your lines and your territory.",
   },
   {
     no: "03",
     name: "Operate",
-    desc: "The monthly work: reconciliation, data upkeep, communications. Done for you.",
+    desc: "The monthly work: maintenance, optimization, data upkeep, and whatever your reps ask for.",
   },
   {
     no: "04",

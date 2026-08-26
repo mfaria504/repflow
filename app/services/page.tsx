@@ -11,7 +11,7 @@ import { SERVICES } from "@/lib/services";
 export const metadata: Metadata = {
   title: "Services · RepFlow",
   description:
-    "Artificial intelligence, CRM implementation, automation, demand generation, sales and marketing ops, data management, and MSP solutions, run as one system.",
+    "The bench behind Build, Run, and Solve: artificial intelligence, CRM implementation, automation, demand generation, sales and marketing ops, data management, and MSP support. One team.",
 };
 
 export default function ServicesPage() {
@@ -22,8 +22,8 @@ export default function ServicesPage() {
       <main>
         <DirectoryHero
           eyebrow="Services"
-          headline="The full technical bench, run as one system."
-          subhead="Seven capabilities, one team. Everything below runs together in practice, not as separate line items handed to separate vendors."
+          headline="The bench behind Build, Run, and Solve."
+          subhead="Seven capabilities, one team. Build pulls from this bench to make your tools. Run keeps the stack working month after month. And when a rep calls with a problem, this is where the answer comes from."
           ctaLabel="Talk through your stack"
           plateTitle="Service Directory"
           kind="services"

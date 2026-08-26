@@ -11,8 +11,8 @@ function Message({ hidden = false }: { hidden?: boolean }) {
       </span>{" "}
       <span className="text-white/85">
         2027 is shaping up to be the strongest year reps have seen in a
-        decade — the only question is whether you&apos;re running the system
-        built for it.
+        decade. The only question is whether your technology is ready for
+        it.
       </span>
     </span>
   );

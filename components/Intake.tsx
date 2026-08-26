@@ -134,7 +134,7 @@ export default function Intake() {
                     >
                       {status === "sending"
                         ? "Sending..."
-                        : "Request a RevOps Assessment"}
+                        : "Request an Assessment"}
                     </button>
                   </div>
                   {status === "error" && (
