@@ -30,13 +30,13 @@ function HeroVideoPanel() {
         playsInline
         preload="auto"
       />
-      {/* Dissolves just the video's left seam into the section's dark base,
-          without dimming the clip itself. */}
+      {/* Dissolves the video's left seam into the section's dark base with a
+          longer, softer taper so the boundary doesn't read as a hard edge. */}
       <div
         className="absolute inset-0"
         style={{
           backgroundImage:
-            "linear-gradient(to right, rgba(var(--midnight-rgb), 0.9) 0%, rgba(var(--midnight-rgb), 0) 22%)",
+            "linear-gradient(to right, rgba(var(--midnight-rgb), 1) 0%, rgba(var(--midnight-rgb), 0.6) 24%, rgba(var(--midnight-rgb), 0) 48%)",
         }}
       />
       <div className="absolute inset-0 bg-gradient-to-b from-midnight/12 via-transparent to-midnight/18" />
@@ -59,6 +59,16 @@ export default function Hero() {
   return (
     <section id="top" className="grain relative overflow-hidden bg-midnight">
       <HeroVideoPanel />
+
+      {/* Subtle warm flare anchored to the hero's bottom-left corner. */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -bottom-40 -left-40 z-0 h-[560px] w-[560px]"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(var(--flare-rgb), 0.22) 0%, rgba(var(--flare-rgb), 0) 70%)",
+        }}
+      />
 
       <div className="relative z-10 mx-auto max-w-6xl px-6 pb-10 pt-16 sm:pt-24 lg:pb-28">
         <div className="lg:max-w-xl">
@@ -112,7 +122,7 @@ export default function Hero() {
           className="absolute inset-0"
           style={{
             backgroundImage:
-              "linear-gradient(to bottom, rgba(var(--midnight-rgb), 0.9) 0%, rgba(var(--midnight-rgb), 0) 22%)",
+              "linear-gradient(to bottom, rgba(var(--midnight-rgb), 1) 0%, rgba(var(--midnight-rgb), 0.6) 24%, rgba(var(--midnight-rgb), 0) 48%)",
           }}
         />
       </motion.div>
