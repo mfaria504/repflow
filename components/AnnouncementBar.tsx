@@ -10,9 +10,7 @@ function Message({ hidden = false }: { hidden?: boolean }) {
         Now accepting manufacturer rep customers.
       </span>{" "}
       <span className="text-white/85">
-        2027 is shaping up to be the strongest year reps have seen in a
-        decade. The only question is whether your technology is ready for
-        it.
+        Your sales team&apos;s secret weapon to growth in 2027 - RepFlow.
       </span>
     </span>
   );
