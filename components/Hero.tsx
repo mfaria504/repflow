@@ -57,7 +57,11 @@ export default function Hero() {
         };
 
   return (
-    <section id="top" className="grain relative overflow-hidden bg-midnight">
+    <section
+      id="top"
+      className="grain relative overflow-hidden"
+      style={{ background: "linear-gradient(to bottom, #141b1f 0%, #060809 100%)" }}
+    >
       <HeroVideoPanel />
 
       {/* Subtle warm flare anchored to the hero's bottom-left corner. */}
