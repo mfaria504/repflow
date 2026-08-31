@@ -220,7 +220,7 @@ export default function MobileMenu() {
                   <Link
                     href="/#assessment"
                     onClick={closeMenu}
-                    className="block rounded-sm bg-brass px-6 py-3.5 text-center font-display text-base font-bold text-white transition-[transform,box-shadow] duration-150 active:translate-y-0 active:scale-[0.97]"
+                    className="block rounded-sm bg-cta px-6 py-3.5 text-center font-display text-base font-bold text-white transition-[transform,box-shadow] duration-150 active:translate-y-0 active:scale-[0.97]"
                   >
                     Request Assessment
                   </Link>

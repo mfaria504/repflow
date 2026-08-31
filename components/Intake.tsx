@@ -130,7 +130,7 @@ export default function Intake() {
                     <button
                       type="submit"
                       disabled={status === "sending"}
-                      className="rounded-sm bg-brass px-6 py-3.5 font-display text-base font-bold text-white transition-[transform,box-shadow,opacity] duration-150 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(199,123,39,0.4)] active:translate-y-0 active:scale-[0.97] disabled:opacity-50"
+                      className="rounded-sm bg-cta px-6 py-3.5 font-display text-base font-bold text-white transition-[transform,box-shadow,opacity] duration-150 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(251,91,14,0.4)] active:translate-y-0 active:scale-[0.97] disabled:opacity-50"
                     >
                       {status === "sending"
                         ? "Sending..."
