@@ -129,7 +129,7 @@ export default function DirectoryHero({
           <motion.div {...settle(0.2)} className="mt-10">
             <a
               href="#assessment"
-              className="inline-block rounded-sm bg-brass px-6 py-3.5 font-display text-base font-bold text-white transition-[transform,box-shadow] duration-150 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(199,123,39,0.4)] active:translate-y-0 active:scale-[0.97] active:shadow-[0_2px_8px_rgba(199,123,39,0.25)]"
+              className="inline-block rounded-sm bg-cta px-6 py-3.5 font-display text-base font-bold text-white transition-[transform,box-shadow] duration-150 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(46,29,14,0.4)] active:translate-y-0 active:scale-[0.97] active:shadow-[0_2px_8px_rgba(46,29,14,0.25)]"
             >
               {ctaLabel}
             </a>

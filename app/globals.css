@@ -25,6 +25,12 @@
   --ink-rgb: 34, 38, 43;
   --midnight-rgb: 9, 13, 15;
   --flare-rgb: 190, 157, 129;
+  --gradient-cta: linear-gradient(135deg, #2e1d0e 0%, #181218 100%);
+  --cta-shadow-rgb: 46, 29, 14;
+}
+
+.bg-cta {
+  background: var(--gradient-cta);
 }
 
 html {
