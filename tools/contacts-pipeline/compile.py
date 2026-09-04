@@ -74,7 +74,8 @@ for c in contacts:
     if c.get("research"):
         r = c["research"]
         e1 = (r.get("email") or r.get("email1") or "").lower()
-        if e1:
+        ok = (r.get("email1EmailAI") or "") != "invalid" and str(r.get("email1TotalAI") or "0").rstrip("%").isdigit() and int(str(r.get("email1TotalAI") or "0").rstrip("%")) >= 50
+        if e1 and ok:
             cands.append(e1)
     if c["email"]:
         cands.append(c["email"])
@@ -94,6 +95,13 @@ for d, cnt in evidence.items():
     overall[cnt.most_common(1)[0][0]] += 1
 DEFAULT_PATTERN = overall.most_common(1)[0][0] if overall else "first"
 
+# ---------- company phone fallback from any researched colleague ----------
+company_phone = {}
+for c in contacts:
+    r = c.get("research")
+    if r and r.get("companyPhone1") and c["company_id"] not in company_phone:
+        company_phone[c["company_id"]] = r["companyPhone1"]
+
 # ---------- build final rows ----------
 rows = []
 for c in contacts:
@@ -101,7 +109,13 @@ for c in contacts:
     sh = sheet[c["company_id"]]
     r = c.get("research")
     email, estatus, alt = "", "", ""
-    if r and (r.get("email") or r.get("email1")):
+    def _pct(v):
+        try:
+            return int(str(v or "").rstrip("%") or 0)
+        except ValueError:
+            return 0
+    r_email_ok = bool(r and (r.get("email") or r.get("email1")) and (r.get("email1EmailAI") or "") != "invalid" and _pct(r.get("email1TotalAI")) >= 50)
+    if r_email_ok:
         email = (r.get("email") or r.get("email1")).lower()
         conf = r.get("email1TotalAI") or ""
         estatus = f"Verified (Seamless {conf})".replace(" )", ")")
@@ -136,6 +150,8 @@ for c in contacts:
         phone, pstatus = fmt_phone(c["phone"]), "Listed (directory/website)"
     if not phone and sh["phone"]:
         phone, pstatus = fmt_phone(sh["phone"]), "Company main (directory)"
+    if not phone and company_phone.get(c["company_id"]):
+        phone, pstatus = fmt_phone(company_phone[c["company_id"]]), "Company main (Seamless)"
     if not email and not estatus and c["domain"] and (len(norm(c["last"])) < 2 or len(norm(c["first"])) < 2):
         estatus = "Name incomplete (no email inferred)"
     title = c["title"] or (r or {}).get("title") or ""
