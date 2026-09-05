@@ -1,8 +1,11 @@
 # RepFlow rep-agency contact database
 
-The contact database built on top of the `hvac_manufacturers_reps_list` Google Sheet lives in that spreadsheet, in the
-`Contacts` and `Companies (enriched)` tabs. It is intentionally not committed here: this repository is public and the
-list contains direct phone numbers and email addresses for named individuals.
+The contact database built on top of the `hvac_manufacturers_reps_list` Google Sheet is delivered as the workbook
+`repflow_contacts_master.xlsx` (original tabs + `Contacts` + `Companies (enriched)` + `README`) and matching CSVs,
+handed over in the Claude Code session that produced them. Matching `Contacts` and `Companies (enriched)` tabs were
+created in the Google Sheet itself; their row upload was interrupted by the Zapier task quota, so import the workbook
+to fill them. The data is intentionally not committed here: this repository is public and the list contains direct
+phone numbers and email addresses for named individuals.
 
 ## Contacts tab columns
 
