@@ -50,11 +50,13 @@ def score(c):
 todo = []
 tier_order = {"A - High Priority": 0, "B - Medium Priority": 1, "C - Standard": 2}
 comp_ids = sorted(by_comp.keys(), key=lambda i: (tier_order.get(companies[i]["tier"], 3), i))
-for pass_no in ([1, 2] if second else [1]):
+for pass_no in ([1, 2, 3] if second else [1]):
     for cid in comp_ids:
         if len(todo) >= budget:
             break
         if pass_no == 2 and tier_order.get(companies[cid]["tier"], 3) > 1:
+            continue
+        if pass_no == 3 and tier_order.get(companies[cid]["tier"], 3) > 1 and len(set(selected.get(str(cid), []))) >= 2:
             continue
         already = set(selected.get(str(cid), []))
         if len(already) >= pass_no:
@@ -66,7 +68,7 @@ for pass_no in ([1, 2] if second else [1]):
             continue
         cands.sort(key=score)
         best = cands[0]
-        if best["title_rank"] >= 5 and pass_no == 2:
+        if best["title_rank"] >= 4 and pass_no >= 2:
             continue  # do not spend a second credit on an unknown-title person
         item = {"company_id": cid, "company": best["company"], "name": best["name"], "first": best["first"],
                 "last": best["last"], "title": best["title"], "domain": best["domain"],
