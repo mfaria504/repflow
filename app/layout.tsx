@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://repflow.com"),
   title: "RepFlow. The revenue technology partner for rep agencies.",
   description:
-    "RepFlow is the revenue technology partner for manufacturers' rep agencies. We build the tools, run the stack, and solve what comes up so your reps can sell. Run by someone who's actually run an agency.",
+    "RepFlow is the revenue technology partner for manufacturers' rep agencies. We build the tools, run the stack, and solve what comes up so your reps can sell. Built inside a working HVAC agency first.",
   openGraph: {
     title: "RepFlow. The revenue technology partner for rep agencies.",
     description:
