@@ -1,44 +1,34 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
-import FooterLogo from "@/components/FooterLogo";
+import Logo from "@/components/Logo";
 import { SERVICES } from "@/lib/services";
 import { INDUSTRIES } from "@/lib/industries";
 
 const linkClass =
-  "text-sm text-safety/65 transition-colors duration-150 hover:text-safety";
-const headingClass =
-  "font-mono text-xs uppercase tracking-widest text-safety/40 transition-colors duration-150 hover:text-safety";
+  "text-[15px] text-fog transition-colors duration-150 hover:text-white";
+const headingClass = "label text-[12px] text-steel transition-colors duration-150 hover:text-white";
+
+const COMPANY = [
+  { href: "/#how", label: "How it works" },
+  { href: "/#why", label: "Why now" },
+  { href: "/#what", label: "What we do" },
+  { href: "/#field-report", label: "Field report" },
+  { href: "/#pricing", label: "Pricing" },
+  { href: "/#assessment", label: "Start a build" },
+];
 
 export default function Footer() {
   return (
-    <footer className="grain relative overflow-hidden bg-ink text-safety">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -left-24 -top-24 h-72 w-72 rounded-full bg-brass/10 blur-[100px]"
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -right-24 bottom-[-6rem] h-72 w-72 rounded-full bg-blueprint/15 blur-[100px]"
-      />
-
-      <div className="relative mx-auto max-w-6xl px-6 py-16 sm:py-20">
+    <footer className="bg-midnight text-safety">
+      <div className="wrap border-t border-white/10 py-16">
         <div className="grid gap-12 lg:grid-cols-[1.1fr_2fr] lg:gap-16">
-          <div>
-            <Link href="/#top" className="inline-block" aria-label="RepFlow">
-              <FooterLogo className="h-8 w-auto" />
+          <div className="flex flex-col gap-5">
+            <Link href="/#top" className="inline-block self-start" aria-label="RepFlow home">
+              <Logo className="h-8 w-auto" />
             </Link>
-            <p className="mt-4 max-w-[30ch] text-sm leading-relaxed text-safety/55">
-              The revenue technology partner for manufacturers&apos; rep
-              agencies. We build the tools, run the stack, and solve what
-              comes up so your reps can sell.
+            <p className="max-w-[30ch] text-[15px] leading-relaxed text-fog">
+              The builder behind the scenes for manufacturers’ rep agencies.
+              We build it, teach it, and keep it running.
             </p>
-            <a
-              href="/#assessment"
-              className="mt-6 inline-flex items-center gap-1.5 rounded-sm border border-white/15 px-4 py-2 font-mono text-xs uppercase tracking-widest text-safety/80 transition-[transform,border-color,color] duration-150 hover:-translate-y-px hover:border-brass hover:text-safety active:translate-y-0 active:scale-[0.97]"
-            >
-              Request Assessment
-              <ArrowRight className="h-3.5 w-3.5" />
-            </a>
           </div>
 
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">
@@ -47,73 +37,54 @@ export default function Footer() {
                 Services
               </Link>
               <ul className="mt-4 flex flex-col gap-2.5">
-                {SERVICES.map((service) => (
-                  <li key={service.slug}>
-                    <Link
-                      href={`/services#${service.slug}`}
-                      className={linkClass}
-                    >
-                      {service.label}
+                {SERVICES.map((s) => (
+                  <li key={s.slug}>
+                    <Link href={`/services#${s.slug}`} className={linkClass}>
+                      {s.label}
                     </Link>
                   </li>
                 ))}
               </ul>
             </div>
-
             <div>
               <Link href="/industries" className={headingClass}>
                 Industries
               </Link>
               <ul className="mt-4 flex flex-col gap-2.5">
-                {INDUSTRIES.map((industry) => (
-                  <li key={industry.slug}>
-                    <Link
-                      href={`/industries#${industry.slug}`}
-                      className={linkClass}
-                    >
-                      {industry.label}
+                {INDUSTRIES.map((ind) => (
+                  <li key={ind.slug}>
+                    <Link href={`/industries#${ind.slug}`} className={linkClass}>
+                      {ind.label}
                     </Link>
                   </li>
                 ))}
               </ul>
             </div>
-
-            <div className="col-span-2 sm:col-span-1">
-              <span className="font-mono text-xs uppercase tracking-widest text-safety/40">
-                Company
-              </span>
+            <div>
+              <span className={headingClass}>RepFlow</span>
               <ul className="mt-4 flex flex-col gap-2.5">
-                <li>
-                  <Link href="/#approach" className={linkClass}>
-                    Approach
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/#field-report" className={linkClass}>
-                    Field Report
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/#ai" className={linkClass}>
-                    AI
-                  </Link>
-                </li>
-                <li>
-                  <a href="/#assessment" className={linkClass}>
-                    Request an Assessment
-                  </a>
-                </li>
+                {COMPANY.map((c) => (
+                  <li key={c.href}>
+                    <Link href={c.href} className={linkClass}>
+                      {c.label}
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
         </div>
 
-        <div className="mt-16 flex flex-col items-start gap-3 border-t border-white/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
-          <span className="font-mono text-xs text-safety/40 tabular">
-            © 2026 RepFlow. All rights reserved.
-          </span>
-          <span className="font-mono text-xs uppercase tracking-widest text-safety/30">
-            Revenue Technology Partner · Manufacturers&apos; Rep Agencies
+        <div className="mt-14 flex flex-wrap items-center justify-between gap-4 border-t border-white/10 pt-8 font-mono text-[13px] text-steel">
+          <span className="tabular">© {new Date().getFullYear()} RepFlow</span>
+          <span>
+            <a href="https://www.repflow.com" className="text-safety transition-colors hover:text-lilac">
+              repflow.com
+            </a>{" "}
+            ·{" "}
+            <a href="mailto:matt@repflow.com" className="text-safety transition-colors hover:text-lilac">
+              matt@repflow.com
+            </a>
           </span>
         </div>
       </div>

@@ -12,7 +12,7 @@ export const INDUSTRIES: Industry[] = [
     pattern: "radial-rings",
     blurb: "Where the model was built and proven, inside a real AIM/R agency.",
     headline: "Built inside HVAC, proven inside HVAC.",
-    body: "RepFlow started as the back office for a mechanical rep agency, not a generic CRM adapted after the fact. Quoting, price books, and commission tracking built around how HVAC reps actually sell: multiple lines, tiered pricing, and distributors who expect a fast, accurate quote.",
+    body: "RepFlow started inside a mechanical rep agency, building its back office from scratch, not adapting a generic CRM after the fact. Quoting, price books, and commission tracking built around how HVAC reps actually sell: multiple lines, tiered pricing, and distributors who expect a fast, accurate quote.",
     bullets: [
       "Line card built for multiple non-competing mechanical lines",
       "Quoting against distributor and contractor price tiers",
@@ -33,7 +33,7 @@ export const INDUSTRIES: Industry[] = [
       "Price books built for electrical gear and panel specs",
       "Territory and distributor mapping for NEMRA-style agencies",
       "Commission tracking across multiple manufacturer lines",
-      "The same platform proven in HVAC, configured for electrical",
+      "The same builds proven in HVAC, configured for electrical",
     ],
   },
   {

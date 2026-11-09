@@ -5,13 +5,14 @@ import "./globals.css";
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
   subsets: ["latin"],
-  weight: ["500", "700"],
+  weight: ["500", "600", "700"],
 });
 
 const plexSans = IBM_Plex_Sans({
   variable: "--font-plex-sans",
   subsets: ["latin"],
   weight: ["400", "500", "600"],
+  style: ["normal", "italic"],
 });
 
 const plexMono = IBM_Plex_Mono({
@@ -22,13 +23,13 @@ const plexMono = IBM_Plex_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://repflow.com"),
-  title: "RepFlow. The revenue technology partner for rep agencies.",
+  title: "RepFlow. The builder behind the scenes for rep agencies.",
   description:
-    "RepFlow is the revenue technology partner for manufacturers' rep agencies. We build the tools, run the stack, and solve what comes up so your reps can sell. Built inside a working HVAC agency first.",
+    "RepFlow builds the tools your sales and operations teams wish they had, connects them to the systems you already run, and keeps them working. Builders, not software, for manufacturers' rep agencies.",
   openGraph: {
-    title: "RepFlow. The revenue technology partner for rep agencies.",
+    title: "RepFlow. The builder behind the scenes for rep agencies.",
     description:
-      "Build. Run. Solve. The technology behind your sales, handled, so your reps can sell.",
+      "Say what you wish you had. We build it, teach it, and keep it running.",
     url: "https://repflow.com",
     siteName: "RepFlow",
     type: "website",
