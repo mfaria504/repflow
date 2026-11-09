@@ -1,45 +1,65 @@
 "use client";
 
+import { useRef, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { Volume2, VolumeX } from "lucide-react";
 import { SPRING_SETTLE } from "@/lib/motion";
 
-// Slow, ambient playback for a decorative loop rather than the source clip's
-// native pace.
-const VIDEO_PLAYBACK_RATE = 0.3;
-
-function setSlowPlayback(el: HTMLVideoElement | null) {
-  if (el) el.playbackRate = VIDEO_PLAYBACK_RATE;
-}
-
-function HeroVideoPanel() {
+// The explainer loops silently on load (browsers block autoplay with sound).
+// The button restarts it from the top with the soundtrack on; pressing it
+// again mutes it and lets the loop carry on.
+function HeroExplainer() {
   const reduced = useReducedMotion();
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [soundOn, setSoundOn] = useState(false);
+
+  function toggleSound() {
+    const el = videoRef.current;
+    if (!el) return;
+    if (soundOn) {
+      el.muted = true;
+      setSoundOn(false);
+      return;
+    }
+    el.muted = false;
+    el.currentTime = 0;
+    void el.play();
+    setSoundOn(true);
+  }
 
   return (
-    <div
-      aria-hidden
-      className="pointer-events-none absolute inset-y-0 right-0 z-0 hidden lg:block lg:w-[340px] xl:w-[420px] 2xl:w-[480px]"
-    >
+    <div className="relative aspect-video w-full overflow-hidden rounded-md bg-paper shadow-[0_24px_64px_rgba(0,0,0,0.45)] ring-1 ring-white/15">
       <video
-        ref={setSlowPlayback}
-        onLoadedMetadata={(e) => setSlowPlayback(e.currentTarget)}
+        ref={videoRef}
         className="absolute inset-0 h-full w-full object-cover"
-        src="/hero-video.mp4"
+        src="/repflow-explainer.mp4"
+        poster="/repflow-explainer-poster.jpg"
+        aria-label="How RepFlow works: a one-minute explainer"
         autoPlay={!reduced}
-        loop={!reduced}
+        controls={!!reduced}
+        loop
         muted
         playsInline
-        preload="auto"
+        preload="metadata"
       />
-      {/* Dissolves the video's left seam into the section's dark base with a
-          longer, softer taper so the boundary doesn't read as a hard edge. */}
-      <div
-        className="absolute inset-0"
-        style={{
-          backgroundImage:
-            "linear-gradient(to right, rgba(var(--midnight-rgb), 1) 0%, rgba(var(--midnight-rgb), 0.6) 24%, rgba(var(--midnight-rgb), 0) 48%)",
-        }}
-      />
-      <div className="absolute inset-0 bg-gradient-to-b from-midnight/12 via-transparent to-midnight/18" />
+      {!reduced && (
+        <button
+          type="button"
+          onClick={toggleSound}
+          aria-pressed={soundOn}
+          aria-label={soundOn ? "Mute" : "Play with sound"}
+          className="absolute bottom-2 right-2 inline-flex items-center gap-2 rounded-full bg-ink/85 p-2.5 sm:bottom-3 sm:right-3 sm:px-3.5 sm:py-2 font-display text-sm font-bold text-white backdrop-blur transition-colors duration-150 hover:bg-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+        >
+          {soundOn ? (
+            <VolumeX aria-hidden className="h-4 w-4" />
+          ) : (
+            <Volume2 aria-hidden className="h-4 w-4" />
+          )}
+          <span className="hidden sm:inline">
+            {soundOn ? "Mute" : "Play with sound"}
+          </span>
+        </button>
+      )}
     </div>
   );
 }
@@ -58,8 +78,6 @@ export default function Hero() {
 
   return (
     <section id="top" className="grain relative overflow-hidden bg-midnight">
-      <HeroVideoPanel />
-
       {/* Subtle warm flare anchored to the hero's bottom-left corner. */}
       <div
         aria-hidden
@@ -70,11 +88,11 @@ export default function Hero() {
         }}
       />
 
-      <div className="relative z-10 mx-auto max-w-6xl px-6 pb-10 pt-16 sm:pt-24 lg:pb-28">
-        <div className="lg:max-w-xl">
+      <div className="relative z-10 mx-auto grid max-w-6xl items-center gap-12 px-6 pb-16 pt-16 sm:pt-24 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] lg:gap-12 lg:pb-28">
+        <div>
           <motion.h1
             className="text-balance font-display font-bold tracking-[-0.03em] text-white"
-            style={{ fontSize: "clamp(2.25rem, 4.5vw + 1rem, 4rem)" }}
+            style={{ fontSize: "clamp(2.25rem, 2.6vw + 1rem, 3.25rem)" }}
             {...settle(0.55)}
           >
             The revenue technology partner for manufacturers&apos; rep
@@ -98,35 +116,11 @@ export default function Hero() {
             </a>
           </motion.div>
         </div>
-      </div>
 
-      {/* Below desktop the full-bleed right panel is hidden, so the same
-          clip runs here instead: full width, docked to the section's
-          bottom edge, dissolving in from the top. */}
-      <motion.div
-        aria-hidden
-        className="relative aspect-[464/688] w-full lg:hidden"
-        {...settle(0.8)}
-      >
-        <video
-          ref={setSlowPlayback}
-          onLoadedMetadata={(e) => setSlowPlayback(e.currentTarget)}
-          className="absolute inset-0 h-full w-full object-cover"
-          src="/hero-video.mp4"
-          autoPlay={!reduced}
-          loop={!reduced}
-          muted
-          playsInline
-          preload="auto"
-        />
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage:
-              "linear-gradient(to bottom, rgba(var(--midnight-rgb), 1) 0%, rgba(var(--midnight-rgb), 0.6) 24%, rgba(var(--midnight-rgb), 0) 48%)",
-          }}
-        />
-      </motion.div>
+        <motion.div {...settle(0.8)}>
+          <HeroExplainer />
+        </motion.div>
+      </div>
     </section>
   );
 }
