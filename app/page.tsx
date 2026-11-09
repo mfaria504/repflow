@@ -1,29 +1,31 @@
-import AnnouncementBar from "@/components/AnnouncementBar";
 import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
-import Problem from "@/components/Problem";
-import Pillars from "@/components/Pillars";
+import WishFlow from "@/components/WishFlow";
+import WhyNow from "@/components/WhyNow";
+import WhatWeDo from "@/components/WhatWeDo";
+import Builders from "@/components/Builders";
 import FieldReport from "@/components/FieldReport";
-import HowItRuns from "@/components/HowItRuns";
-import AiShift from "@/components/AiShift";
-import Fit from "@/components/Fit";
-import Intake from "@/components/Intake";
+import Worth from "@/components/Worth";
+import Pricing from "@/components/Pricing";
+import WhoFor from "@/components/WhoFor";
+import Close from "@/components/Close";
 import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
     <>
-      <AnnouncementBar />
       <Nav />
       <main>
         <Hero />
-        <Problem />
-        <Pillars />
+        <WishFlow />
+        <WhyNow />
+        <WhatWeDo />
+        <Builders />
         <FieldReport />
-        <HowItRuns />
-        <AiShift />
-        <Fit />
-        <Intake />
+        <Worth />
+        <Pricing />
+        <WhoFor />
+        <Close />
       </main>
       <Footer />
     </>

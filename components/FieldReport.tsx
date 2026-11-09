@@ -1,4 +1,5 @@
 import Reveal from "@/components/Reveal";
+import SectionLabel from "@/components/SectionLabel";
 
 const BLOCKS = [
   {
@@ -7,7 +8,7 @@ const BLOCKS = [
   },
   {
     heading: "Built",
-    body: "The RepFlow platform, live. Quoting, price books, and pipeline in one place. Commission reconciliation built once, then run monthly. A distributor newsletter, sent on schedule.",
+    body: "Quoting, price books, and pipeline in one place. Commission reconciliation built once, then run monthly. A distributor newsletter, sent on schedule.",
   },
   {
     heading: "Result",
@@ -17,54 +18,68 @@ const BLOCKS = [
 
 export default function FieldReport() {
   return (
-    <section
-      id="field-report"
-      className="grain relative scroll-mt-20 bg-ink text-safety"
-    >
-      <div className="relative mx-auto max-w-6xl px-6 py-20 sm:py-28">
-        <Reveal>
-          <div className="mb-12 flex flex-wrap items-baseline justify-between gap-4 border-b border-white/10 pb-6">
-            <h2 className="font-display text-3xl font-bold tracking-[-0.02em] sm:text-4xl">
-              Field Report
+    <section id="field-report" className="grain sec">
+      <div className="wrap flex flex-col gap-12">
+        <div className="flex flex-col gap-5">
+          <Reveal>
+            <SectionLabel no="05" fig="REPORT NO. 001">
+              Field report
+            </SectionLabel>
+          </Reveal>
+          <Reveal delay={0.08}>
+            <h2
+              className="font-display font-bold tracking-[-0.03em]"
+              style={{ fontSize: "clamp(36px, 4.7vw, 56px)" }}
+            >
+              Proven inside
+              <br />
+              <span className="text-cobalt-deep">a working rep agency.</span>
             </h2>
-            <span className="font-mono text-xs uppercase tracking-widest text-safety/40 tabular">
-              Report No. 001 · Job Complete
-            </span>
-          </div>
-        </Reveal>
-
-        <Reveal delay={0.1}>
-          <div className="mb-12 grid gap-2 font-mono text-sm sm:grid-cols-2">
-            <p className="text-safety/65">
-              <span className="text-safety/40">SITE:</span> A regional HVAC
-              and mechanical rep agency
-            </p>
-            <p className="text-safety/65">
-              <span className="text-safety/40">SCOPE:</span> Build and run,
-              full stack
-            </p>
-          </div>
-        </Reveal>
-
-        <div className="grid gap-px overflow-hidden rounded-sm border border-white/10 bg-white/10 md:grid-cols-3">
-          {BLOCKS.map((block, i) => (
-            <Reveal key={block.heading} delay={0.15 + i * 0.1} className="h-full">
-              <div className="h-full bg-ink p-8">
-                <span className="font-mono text-xs uppercase tracking-widest text-brass">
-                  {String(i + 1).padStart(2, "0")} · {block.heading}
-                </span>
-                <p className="mt-4 text-base leading-relaxed text-safety/80">
-                  {block.body}
-                </p>
+          </Reveal>
+          <Reveal delay={0.14}>
+            <dl className="mt-2 flex flex-wrap gap-x-10 gap-y-2 font-mono text-[13px] tracking-[0.04em] text-body">
+              <div className="flex gap-2">
+                <dt className="text-mute">SITE</dt>
+                <dd>A regional HVAC and mechanical rep agency</dd>
               </div>
-            </Reveal>
-          ))}
+              <div className="flex gap-2">
+                <dt className="text-mute">SCOPE</dt>
+                <dd>Build, train and manage</dd>
+              </div>
+            </dl>
+          </Reveal>
         </div>
 
-        <Reveal delay={0.3}>
-          <p className="mt-10 max-w-2xl text-sm text-safety/50">
-            HVAC is where this model was proven. The same structure runs in
-            electrical, plumbing, and adjacent trades, and so does RepFlow.
+        <div className="grid gap-6 md:grid-cols-3" style={{ perspective: 1400 }}>
+          {BLOCKS.map((b, i) => {
+            const last = i === BLOCKS.length - 1;
+            return (
+              <Reveal key={b.heading} from="rise" delay={i * 0.12} className="h-full">
+                <div
+                  className={`lift flex h-full flex-col gap-5 rounded-[28px] p-8 sm:p-9 ${
+                    last
+                      ? "blueprint overflow-clip shadow-[0_32px_64px_rgba(11,15,18,0.28),0_2px_8px_rgba(11,15,18,0.2)]"
+                      : "border border-line bg-safety shadow-[0_1px_2px_rgba(34,38,43,0.04),0_24px_48px_rgba(34,38,43,0.08)]"
+                  }`}
+                >
+                  <div className={`label relative flex items-center gap-3 text-[12px] ${last ? "text-lilac" : "text-cobalt-deep"}`}>
+                    <span className="tabular">{String(i + 1).padStart(2, "0")}</span>
+                    <span aria-hidden className={`h-px w-6 ${last ? "bg-white/25" : "bg-[#cfcbc0]"}`} />
+                    {b.heading}
+                  </div>
+                  <p className={`relative text-[17px] leading-relaxed ${last ? "text-safety" : "text-body"}`}>
+                    {b.body}
+                  </p>
+                </div>
+              </Reveal>
+            );
+          })}
+        </div>
+
+        <Reveal>
+          <p className="max-w-2xl text-[15px] text-mute">
+            HVAC is where this was proven. The same structure runs in
+            electrical, plumbing, and adjacent trades, and so do we.
           </p>
         </Reveal>
       </div>

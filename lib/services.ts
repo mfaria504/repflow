@@ -19,7 +19,7 @@ export const SERVICES: Service[] = [
     accent: "blueprint",
     pattern: "orbit-arc",
     pillar: "build",
-    blurb: "The how behind everything we build and run.",
+    blurb: "The how behind everything we build and manage.",
     headline: "AI that runs your work, not a chatbot bolted onto it.",
     body: "Applied AI built into the systems you already use: quote generation, lead scoring, document extraction, communications drafted from your own data. Production tools that run every day, and the partner for everything AI takes over next.",
     bullets: [

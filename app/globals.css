@@ -1,15 +1,22 @@
 @import "tailwindcss";
 
 @theme {
-  /* RepFlow design tokens, Section 4 of the roadmap */
+  /* RepFlow design tokens, matched to the "How RepFlow Works" canvas */
   --color-paper: #edebe4;
   --color-ink: #22262b;
-  --color-midnight: #090d0f;
+  --color-midnight: #0b0f12;
   --color-brass: #c77b27;
   --color-blueprint: #2b4c6f;
   --color-steel: #8b8f94;
   --color-safety: #fafaf8;
   --color-cobalt: #5a5aff;
+  --color-cobalt-deep: #4b4bf0;
+  --color-cobalt-ink: #3c3cc4;
+  --color-lilac: #9b9bff;
+  --color-line: #d3cfc4;
+  --color-mute: #5c6066;
+  --color-body: #4a4f55;
+  --color-fog: #b9bcc1;
   --color-flare: #be9d81;
 }
 
@@ -20,21 +27,16 @@
 }
 
 :root {
-  --brass-rgb: 199, 123, 39;
-  --blueprint-rgb: 43, 76, 111;
+  --cobalt-rgb: 90, 90, 255;
   --ink-rgb: 34, 38, 43;
-  --midnight-rgb: 9, 13, 15;
-  --flare-rgb: 190, 157, 129;
-  --gradient-cta: linear-gradient(135deg, #e57410 0%, #fb5b0e 100%);
-  --cta-shadow-rgb: 251, 91, 14;
-}
-
-.bg-cta {
-  background: var(--gradient-cta);
+  --midnight-rgb: 11, 15, 18;
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 88px;
 }
 
 body {
@@ -47,14 +49,14 @@ body {
 }
 
 ::selection {
-  background-color: rgba(var(--brass-rgb), 0.25);
+  background-color: rgba(var(--cobalt-rgb), 0.28);
 }
 
 h1,
 h2,
 h3 {
   font-family: var(--font-space-grotesk), "Space Grotesk", sans-serif;
-  line-height: 1.1;
+  line-height: 1.04;
 }
 
 p {
@@ -66,9 +68,9 @@ p {
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-brass);
+  outline: 2px solid var(--color-cobalt);
   outline-offset: 3px;
-  border-radius: 2px;
+  border-radius: 4px;
 }
 
 .tabular {
@@ -76,14 +78,134 @@ p {
   font-feature-settings: "tnum";
 }
 
-/* Subtle paper grain over large flat surfaces */
-.grain::before {
+/* Custom classes sit in the components layer so Tailwind utilities
+   (hidden, pt-0, ...) can still override them. */
+@layer components {
+/* Page column: 1040px of content, fluid gutters. */
+.wrap {
+  width: 100%;
+  max-width: 1120px;
+  margin-inline: auto;
+  padding-inline: clamp(20px, 5vw, 40px);
+}
+
+.sec {
+  padding-block: clamp(96px, 13vw, 160px);
+}
+
+/* Mono eyebrow used across the site. */
+.label {
+  font-family: var(--font-plex-mono), "IBM Plex Mono", monospace;
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* Subtle paper grain over large flat surfaces. */
+.grain {
+  position: relative;
+}
+.grain::after {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
-  opacity: 0.035;
+  opacity: 0.04;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Dark "blueprint" surface: a dot grid that fades away from the top right. */
+.blueprint {
+  position: relative;
+  background-color: var(--color-midnight);
+  color: var(--color-safety);
+}
+.blueprint::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.24) 1.1px,
+    transparent 1.7px
+  );
+  background-size: 20px 20px;
+  background-position: 10px 10px;
+  -webkit-mask-image: radial-gradient(
+    ellipse 70% 85% at 82% 22%,
+    #000 0%,
+    rgba(0, 0, 0, 0.5) 45%,
+    rgba(0, 0, 0, 0.1) 100%
+  );
+  mask-image: radial-gradient(
+    ellipse 70% 85% at 82% 22%,
+    #000 0%,
+    rgba(0, 0, 0, 0.5) 45%,
+    rgba(0, 0, 0, 0.1) 100%
+  );
+}
+
+/* Primary action: the cobalt pill. */
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  border-radius: 999px;
+  background: var(--color-cobalt);
+  color: #fff;
+  font-family: var(--font-space-grotesk), "Space Grotesk", sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  box-shadow:
+    0 12px 32px rgba(var(--cobalt-rgb), 0.35),
+    0 2px 6px rgba(var(--cobalt-rgb), 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  transition:
+    transform 180ms var(--ease-spring),
+    box-shadow 180ms ease;
+}
+.cta:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 16px 40px rgba(var(--cobalt-rgb), 0.45),
+    0 2px 8px rgba(var(--cobalt-rgb), 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+.cta:active {
+  transform: scale(0.97);
+  transition: transform 60ms ease;
+}
+.cta:focus-visible {
+  outline: 2px solid var(--color-safety);
+  outline-offset: 4px;
+  border-radius: 999px;
+}
+.cta:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.cta svg {
+  transition: transform 180ms var(--ease-spring);
+}
+.cta:hover svg {
+  transform: translateX(3px);
+}
+
+/* Cards that lift on hover. */
+.lift {
+  transition:
+    transform 0.5s var(--ease-expo),
+    box-shadow 0.5s var(--ease-expo);
+}
+.lift:hover {
+  transform: translateY(-6px);
+  box-shadow:
+    0 1px 2px rgba(var(--ink-rgb), 0.04),
+    0 36px 64px rgba(var(--ink-rgb), 0.12);
 }
 
 @keyframes marquee {
@@ -94,9 +216,126 @@ p {
     transform: translateX(-50%);
   }
 }
-
 .animate-marquee {
-  animation: marquee 26s linear infinite;
+  animation: marquee 48s linear infinite;
+}
+.animate-marquee-slow {
+  animation: marquee 80s linear infinite;
+}
+.marquee-mask {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 12%,
+    #000 88%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 12%,
+    #000 88%,
+    transparent
+  );
+}
+.marquee-mask:hover .animate-marquee-slow {
+  animation-play-state: paused;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+.ripple {
+  animation: ripple 3.6s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+.ripple-2 {
+  animation-delay: 1.2s;
+}
+.ripple-3 {
+  animation-delay: 2.4s;
+}
+
+@keyframes blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+.caret {
+  animation: blink 1.1s steps(1) infinite;
+}
+
+/* Range inputs in the calculator. */
+.range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 24px;
+  background: transparent;
+  cursor: grab;
+}
+.range:active {
+  cursor: grabbing;
+}
+.range::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(
+    to right,
+    var(--color-cobalt) var(--fill, 50%),
+    #dcd8cd var(--fill, 50%)
+  );
+}
+.range::-moz-range-track {
+  height: 6px;
+  border-radius: 999px;
+  background: #dcd8cd;
+}
+.range::-moz-range-progress {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--color-cobalt);
+}
+.range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  margin-top: -9px;
+  border-radius: 999px;
+  background: #fff;
+  border: 2px solid var(--color-cobalt);
+  box-shadow:
+    0 6px 16px rgba(var(--cobalt-rgb), 0.35),
+    0 1px 3px rgba(var(--cobalt-rgb), 0.3);
+  transition: transform 160ms var(--ease-spring);
+}
+.range::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  background: #fff;
+  border: 2px solid var(--color-cobalt);
+  box-shadow: 0 6px 16px rgba(var(--cobalt-rgb), 0.35);
+}
+.range:hover::-webkit-slider-thumb {
+  transform: scale(1.12);
+}
+.range:active::-webkit-slider-thumb {
+  transform: scale(0.96);
+}
+
 }
 
 @media (prefers-reduced-motion: reduce) {

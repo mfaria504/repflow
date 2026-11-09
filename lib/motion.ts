@@ -1,5 +1,8 @@
 import type { Transition } from "framer-motion";
 
+// The site's signature easing: fast out of the gate, long soft landing.
+export const EXPO: [number, number, number, number] = [0.16, 1, 0.3, 1];
+
 export const SPRING: Transition = { type: "spring", stiffness: 400, damping: 30 };
 
 export const SPRING_SETTLE: Transition = {
@@ -8,4 +11,4 @@ export const SPRING_SETTLE: Transition = {
   damping: 22,
 };
 
-export const STAMP: Transition = { duration: 0.18, ease: [0.2, 0, 0.38, 1] };
+export const POP: Transition = { type: "spring", stiffness: 420, damping: 22 };

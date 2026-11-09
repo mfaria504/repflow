@@ -1,43 +1,30 @@
 import type { Metadata } from "next";
-import AnnouncementBar from "@/components/AnnouncementBar";
 import Nav from "@/components/Nav";
-import DirectoryHero from "@/components/DirectoryHero";
-import DirectorySubNav from "@/components/DirectorySubNav";
-import DirectorySection from "@/components/DirectorySection";
-import Intake from "@/components/Intake";
+import Directory from "@/components/Directory";
+import Close from "@/components/Close";
 import Footer from "@/components/Footer";
-import { SERVICES } from "@/lib/services";
 
 export const metadata: Metadata = {
   title: "Services · RepFlow",
   description:
-    "The bench behind Build, Run, and Solve: artificial intelligence, CRM implementation, automation, demand generation, sales and marketing ops, data management, and MSP support. One team.",
+    "What RepFlow builds and keeps running for rep agencies: AI, CRM implementation, automation, demand generation, sales and marketing ops, data management, and systems support. One team of builders.",
 };
 
 export default function ServicesPage() {
   return (
     <>
-      <AnnouncementBar />
       <Nav />
       <main>
-        <DirectoryHero
+        <Directory
           eyebrow="Services"
-          headline="The bench behind Build, Run, and Solve."
-          subhead="Seven capabilities, one team. Build pulls from this bench to make your tools. Run keeps the stack working month after month. And when a rep calls with a problem, this is where the answer comes from."
-          ctaLabel="Talk through your stack"
-          plateTitle="Service Directory"
+          headline="Everything we build,"
+          accent="and keep running."
+          subhead="Seven capabilities, one team of builders. When someone on your team says “I wish,” this is the bench the answer comes from."
+          ctaLabel="Tell us your first “I wish”"
+          cardLabel="What’s included"
           kind="services"
         />
-        <DirectorySubNav kind="services" />
-        {SERVICES.map((service, i) => (
-          <DirectorySection
-            key={service.slug}
-            item={service}
-            index={i}
-            cardLabel="What's included"
-          />
-        ))}
-        <Intake />
+        <Close />
       </main>
       <Footer />
     </>

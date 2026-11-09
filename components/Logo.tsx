@@ -28,7 +28,7 @@ const WORDMARK_PATHS = [
   "M533.18,52.61c2.05,8.8,3.67,17.74,5.28,27.27h.59c1.76-9.09,3.67-17.59,5.72-27.42l5.42-27.27h19.65l-19.5,69.49h-24.48l-6.3-29.91c-1.76-8.06-3.08-16.42-4.1-24.92h-.73c-1.17,8.36-2.64,17.01-4.11,24.92l-5.72,29.91h-24.63l-19.5-69.49h20.52l6.6,27.27c2.35,9.68,4.25,18.18,5.72,27.42h.59c1.61-9.53,3.23-18.47,5.13-27.27l6.01-27.42h21.84l6.01,27.42Z",
 ];
 
-export default function FooterLogo({ className }: { className?: string }) {
+export default function Logo({ className }: { className?: string }) {
   const reduced = useReducedMotion();
   const svgRef = useRef<SVGSVGElement>(null);
   const dx = useMotionValue(0);
