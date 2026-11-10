@@ -21,7 +21,8 @@ export default function IndustriesPage() {
           accent="actually sells."
           subhead="HVAC is where this started. The same builders work in every trade that sells through independent reps and distributors."
           ctaLabel="Talk about your trade"
-          cardLabel="Built for"
+          sheetTitle="Built for"
+          sheetFoot="Set up for your lines and your territory"
           kind="industries"
         />
         <Close />
