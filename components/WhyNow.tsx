@@ -17,7 +17,7 @@ const NEW = [
 
 export default function WhyNow() {
   return (
-    <section id="why" className="grain bg-cobalt py-[clamp(80px,10.6vw,128px)] text-white">
+    <section id="why" className="grain overflow-x-clip bg-cobalt py-[clamp(80px,10.6vw,128px)] text-white">
       <div className="wrap flex flex-col gap-14">
         <Reveal>
           <SectionLabel no="02" tone="cobalt">

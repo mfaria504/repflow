@@ -187,9 +187,11 @@ export default function Hero() {
 
   return (
     <>
-      <section id="top" className="blueprint">
+      <section id="top" className="blueprint flow-root">
         {/* Decoration lives in its own clipped layer so the film below can
-            hang out of the section's bottom edge. */}
+            hang out of the section's bottom edge. flow-root stops the film's
+            negative margin collapsing through the section, which would end
+            the dark background flush with the film instead of under it. */}
         <div aria-hidden className="pointer-events-none absolute inset-0 overflow-clip">
           <motion.div
             className="absolute -right-24 -top-24 w-[280px] sm:-right-[130px] sm:-top-[120px] sm:w-[420px] lg:-right-40 lg:-top-[140px] lg:w-[560px] min-[1160px]:left-[calc(50%+20px)] min-[1160px]:right-auto min-[1160px]:-top-[150px] min-[1160px]:w-[760px]"
@@ -258,7 +260,7 @@ export default function Hero() {
           </motion.div>
 
           <motion.div
-            className="relative z-10 mt-[clamp(56px,6vw,80px)] -mb-[clamp(72px,17vw,248px)]"
+            className="relative z-10 mt-[clamp(56px,6vw,80px)] -mb-[clamp(48px,8vw,120px)]"
             {...(reduced
               ? {}
               : {
@@ -275,7 +277,7 @@ export default function Hero() {
       {/* The systems we connect to, on a slow ticker under the film. */}
       <section
         aria-label="Systems we connect to"
-        className="grain pb-2 pt-[calc(clamp(72px,17vw,248px)+clamp(48px,6vw,72px))]"
+        className="grain pb-2 pt-[calc(clamp(48px,8vw,120px)+clamp(48px,6vw,72px))]"
       >
         <p className="label wrap text-center text-mute">
           Built into the systems you already run

@@ -40,6 +40,8 @@ html {
 }
 
 body {
+  /* Nothing that slides in from the side may widen the page on phones. */
+  overflow-x: clip;
   background-color: var(--color-paper);
   color: var(--color-ink);
   font-family: var(--font-plex-sans), "IBM Plex Sans", sans-serif;
