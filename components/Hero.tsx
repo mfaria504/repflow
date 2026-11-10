@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import {
   motion,
@@ -8,7 +8,7 @@ import {
   useScroll,
   useTransform,
 } from "framer-motion";
-import { ArrowRight, Volume2, VolumeX } from "lucide-react";
+import { ArrowRight, Maximize2, Volume2, VolumeX } from "lucide-react";
 import Eye from "@/components/Eye";
 import { EXPO } from "@/lib/motion";
 
@@ -26,12 +26,59 @@ const SYSTEMS = [
 ];
 
 // The explainer loops silently on load (browsers block autoplay with sound).
-// The button restarts it from the top with the soundtrack on.
+// One button restarts it from the top with the soundtrack on; the other opens
+// it full screen with sound and the browser's own playback controls.
 function Film() {
   const reduced = useReducedMotion();
   const frameRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [soundOn, setSoundOn] = useState(false);
+  const [full, setFull] = useState(false);
+
+  // Leaving full screen puts the film back to its quiet inline loop.
+  useEffect(() => {
+    const el = videoRef.current;
+    if (!el) return;
+    const onChange = () => {
+      const active = document.fullscreenElement === el;
+      setFull(active);
+      if (!active) {
+        el.muted = true;
+        setSoundOn(false);
+        void el.play().catch(() => {});
+      }
+    };
+    const onIosEnd = () => {
+      setFull(false);
+      el.muted = true;
+      setSoundOn(false);
+      void el.play().catch(() => {});
+    };
+    document.addEventListener("fullscreenchange", onChange);
+    el.addEventListener("webkitendfullscreen", onIosEnd);
+    return () => {
+      document.removeEventListener("fullscreenchange", onChange);
+      el.removeEventListener("webkitendfullscreen", onIosEnd);
+    };
+  }, []);
+
+  function openFullScreen() {
+    const el = videoRef.current as
+      | (HTMLVideoElement & { webkitEnterFullscreen?: () => void })
+      | null;
+    if (!el) return;
+    el.muted = false;
+    el.currentTime = 0;
+    setSoundOn(true);
+    setFull(true);
+    void el.play().catch(() => {});
+    if (el.requestFullscreen) {
+      el.requestFullscreen().catch(() => setFull(false));
+    } else if (el.webkitEnterFullscreen) {
+      // iPhone Safari only offers its native full-screen player.
+      el.webkitEnterFullscreen();
+    }
+  }
 
   // The film tips up off the page and settles flat as it scrolls into view.
   const { scrollYProgress } = useScroll({
@@ -61,49 +108,60 @@ function Film() {
         style={
           reduced ? undefined : { scale, rotateX, transformOrigin: "50% 100%" }
         }
-        className="overflow-hidden rounded-[20px] bg-white shadow-[0_48px_120px_rgba(90,90,255,0.3),0_12px_32px_rgba(11,15,18,0.45)] ring-1 ring-white/20"
+        className="overflow-hidden rounded-[20px] bg-[#12161a] shadow-[0_48px_120px_rgba(90,90,255,0.3),0_12px_32px_rgba(11,15,18,0.45)] ring-1 ring-white/20"
       >
-        <div className="flex items-center gap-3.5 border-b border-[#eeece6] bg-white px-5 py-3.5">
+        <div className="flex items-center gap-3.5 border-b border-white/10 bg-[#12161a] px-5 py-3.5">
           <div aria-hidden className="flex gap-1.5">
-            <span className="h-2.5 w-2.5 rounded-full bg-[#e2dfd5]" />
-            <span className="h-2.5 w-2.5 rounded-full bg-[#e2dfd5]" />
-            <span className="h-2.5 w-2.5 rounded-full bg-[#e2dfd5]" />
+            <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
+            <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
+            <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
           </div>
-          <span className="font-mono text-xs tracking-[0.08em] text-mute">
-            REPFLOW IN 60 SECONDS
+          <span className="font-mono text-xs tracking-[0.08em] text-steel">
+            REPFLOW IN 40 SECONDS
           </span>
         </div>
-        <div className="relative aspect-video bg-paper">
+        <div className="relative aspect-video bg-midnight">
           <video
             ref={videoRef}
-            className="absolute inset-0 h-full w-full object-cover"
+            className={`absolute inset-0 h-full w-full bg-black ${full ? "object-contain" : "object-cover"}`}
             src="/repflow-explainer.mp4"
             poster="/repflow-explainer-poster.jpg"
-            aria-label="How RepFlow works: a one-minute explainer"
+            aria-label="How RepFlow works: a 40-second explainer"
             autoPlay={!reduced}
-            controls={!!reduced}
+            controls={!!reduced || full}
             loop
             muted
             playsInline
             preload="metadata"
           />
-          {!reduced && (
-            <button
-              type="button"
-              onClick={toggleSound}
-              aria-pressed={soundOn}
-              aria-label={soundOn ? "Mute" : "Play with sound"}
-              className="absolute bottom-3 right-3 inline-flex items-center gap-2 rounded-full bg-midnight/85 p-2.5 font-display text-sm font-bold text-white backdrop-blur backdrop-saturate-150 transition-[transform,background-color] duration-150 hover:scale-[1.03] hover:bg-midnight active:scale-[0.97] sm:bottom-4 sm:right-4 sm:px-4 sm:py-2.5"
-            >
-              {soundOn ? (
-                <VolumeX aria-hidden className="h-4 w-4" />
-              ) : (
-                <Volume2 aria-hidden className="h-4 w-4" />
-              )}
-              <span className="hidden sm:inline">
-                {soundOn ? "Mute" : "Play with sound"}
-              </span>
-            </button>
+          {!reduced && !full && (
+            <div className="absolute bottom-3 right-3 flex items-center gap-2 sm:bottom-4 sm:right-4">
+              <button
+                type="button"
+                onClick={toggleSound}
+                aria-pressed={soundOn}
+                aria-label={soundOn ? "Mute" : "Play with sound"}
+                className="inline-flex cursor-pointer items-center gap-2 rounded-full bg-midnight/85 p-2.5 font-display text-sm font-bold text-white ring-1 ring-white/15 backdrop-blur backdrop-saturate-150 transition-[transform,background-color] duration-150 hover:scale-[1.03] hover:bg-midnight active:scale-[0.97] sm:px-4 sm:py-2.5"
+              >
+                {soundOn ? (
+                  <VolumeX aria-hidden className="h-4 w-4" />
+                ) : (
+                  <Volume2 aria-hidden className="h-4 w-4" />
+                )}
+                <span className="hidden sm:inline">
+                  {soundOn ? "Mute" : "Play with sound"}
+                </span>
+              </button>
+              <button
+                type="button"
+                onClick={openFullScreen}
+                aria-label="Watch full screen"
+                className="inline-flex cursor-pointer items-center gap-2 rounded-full bg-cobalt p-2.5 font-display text-sm font-bold text-white shadow-[0_8px_20px_rgba(90,90,255,0.4)] transition-transform duration-150 hover:scale-[1.03] active:scale-[0.97] sm:px-4 sm:py-2.5"
+              >
+                <Maximize2 aria-hidden className="h-4 w-4" />
+                <span className="hidden sm:inline">Full screen</span>
+              </button>
+            </div>
           )}
         </div>
       </motion.div>
