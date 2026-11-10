@@ -1,5 +1,5 @@
 import { Check, X } from "lucide-react";
-import Eye from "@/components/Eye";
+import Logo from "@/components/Logo";
 import Reveal from "@/components/Reveal";
 import SectionLabel from "@/components/SectionLabel";
 
@@ -68,12 +68,9 @@ export default function WhyNow() {
             <div className="blueprint flex h-full flex-col gap-7 overflow-clip rounded-[28px] p-8 shadow-[0_32px_64px_rgba(11,15,18,0.35),0_2px_8px_rgba(11,15,18,0.2)] sm:p-10">
               <div className="relative flex flex-col gap-3">
                 <div className="label text-lilac">The new way</div>
-                <div className="flex items-center gap-3.5">
-                  <Eye className="h-9 w-9" ring="#fafaf8" />
-                  <h3 className="font-display text-[32px] font-bold tracking-[-0.02em]">
-                    RepFlow
-                  </h3>
-                </div>
+                <h3>
+                  <Logo className="h-10 w-auto sm:h-11" />
+                </h3>
               </div>
               <p className="relative text-[17px] leading-relaxed text-[#c9ccd1]">
                 AI lets a small team build what used to take a department. You
